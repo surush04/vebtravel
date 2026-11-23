@@ -1,0 +1,129 @@
+@use 'mixins' as *;
+
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2.25rem;
+  margin-bottom: clamp(4rem, 8vw, 7rem);
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.toc__link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  align-items: center;
+  @include micro-caps;
+  font-size: 0.68rem;
+  color: var(--fg-muted);
+  transition: color 0.3s;
+
+  .index-num {
+    font-size: 1rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  &:hover {
+    color: var(--fg-strong);
+  }
+}
+
+.exp {
+  display: grid;
+  gap: 2.5rem;
+  scroll-margin-top: 6rem;
+
+  & + & {
+    margin-top: clamp(5rem, 11vw, 10rem);
+  }
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 6rem;
+    align-items: center;
+
+    &--reverse .exp__media {
+      order: 2;
+    }
+  }
+}
+
+.exp__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+
+  @include up(sm) {
+    aspect-ratio: 3 / 2;
+  }
+
+  @include up(lg) {
+    aspect-ratio: 4 / 4.6;
+  }
+}
+
+.exp__num {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 9vw, 7.5rem);
+  font-weight: 300;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(233, 227, 215, 0.7);
+  pointer-events: none;
+}
+
+.exp__body {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: start;
+}
+
+.exp__title {
+  font-size: clamp(2.25rem, 4.2vw, 4rem);
+}
+
+.exp__points {
+  width: 100%;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+
+  h4 {
+    margin-bottom: 1rem;
+  }
+
+  li {
+    position: relative;
+    padding: 0.55rem 0 0.55rem 2rem;
+    color: var(--fg);
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1.35rem;
+      width: 1.1rem;
+      height: 1px;
+      background: var(--c-gold);
+    }
+  }
+}
+
+.exp__note {
+  padding: 1.25rem 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--fg);
+  background: rgba(197, 164, 109, 0.14);
+  border-left: 2px solid var(--c-gold);
+
+  strong {
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+}

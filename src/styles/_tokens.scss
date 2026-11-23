@@ -1,0 +1,91 @@
+// =============================================================
+//  M-SAYYOD — Design tokens
+//  One source of truth for colour, type, spacing and motion.
+// =============================================================
+
+:root {
+  // ---- Brand palette -----------------------------------------
+  --c-forest: #142b22; // Deep Forest Green
+  --c-forest-deep: #0f211a;
+  --c-charcoal: #151a17; // Dark Charcoal
+  --c-charcoal-2: #1c221e;
+  --c-gold: #c5a46d; // Warm Gold
+  --c-gold-deep: #7a5c2e; // Gold for text on light backgrounds (AA contrast)
+  --c-beige: #e9e3d7; // Natural Beige
+  --c-beige-2: #ddd5c6;
+  --c-white: #ffffff;
+
+  // ---- Typography --------------------------------------------
+  --font-display: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
+  --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --fs-hero: clamp(3rem, 10.4vw, 10.5rem);
+  --fs-h1: clamp(2.75rem, 7vw, 6.5rem);
+  --fs-h2: clamp(2.25rem, 5vw, 4.75rem);
+  --fs-h3: clamp(1.55rem, 2.4vw, 2.25rem);
+  --fs-h4: clamp(1.25rem, 1.6vw, 1.5rem);
+  --fs-lead: clamp(1.05rem, 1.35vw, 1.28rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-micro: 0.72rem;
+
+  // ---- Layout ------------------------------------------------
+  --container: 1440px;
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --section-y: clamp(5rem, 11vw, 10rem);
+  --header-h: 72px;
+
+  // ---- Motion ------------------------------------------------
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.3s;
+  --dur: 0.6s;
+  --dur-slow: 1.2s;
+
+  // ---- Default (dark) theme roles ----------------------------
+  --bg: var(--c-charcoal);
+  --fg: var(--c-beige);
+  --fg-strong: var(--c-white);
+  --fg-muted: rgba(233, 227, 215, 0.7);
+  --line: rgba(233, 227, 215, 0.14);
+  --accent: var(--c-gold);
+  --accent-text: var(--c-gold);
+}
+
+// ---- Section themes (set colour roles, components read the roles) ----
+.theme-dark,
+.theme-forest,
+.theme-light {
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+.theme-dark {
+  --bg: var(--c-charcoal);
+  --fg: var(--c-beige);
+  --fg-strong: var(--c-white);
+  --fg-muted: rgba(233, 227, 215, 0.7);
+  --line: rgba(233, 227, 215, 0.14);
+  --accent: var(--c-gold);
+  --accent-text: var(--c-gold);
+}
+
+.theme-forest {
+  --bg: var(--c-forest);
+  --fg: var(--c-beige);
+  --fg-strong: var(--c-white);
+  --fg-muted: rgba(233, 227, 215, 0.72);
+  --line: rgba(233, 227, 215, 0.16);
+  --accent: var(--c-gold);
+  --accent-text: var(--c-gold);
+}
+
+.theme-light {
+  --bg: var(--c-beige);
+  --fg: var(--c-charcoal);
+  --fg-strong: #0c0f0d;
+  --fg-muted: rgba(21, 26, 23, 0.72);
+  --line: rgba(21, 26, 23, 0.15);
+  --accent: var(--c-gold);
+  --accent-text: var(--c-gold-deep);
+}

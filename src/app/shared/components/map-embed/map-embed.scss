@@ -1,0 +1,71 @@
+@use 'mixins' as *;
+
+:host {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  min-height: 22rem;
+  overflow: hidden;
+  background: var(--c-forest-deep);
+  border: 1px solid var(--line);
+}
+
+.map__frame {
+  @include fill;
+  border: 0;
+  filter: grayscale(0.65) contrast(1.05) brightness(0.92);
+}
+
+.map__poster {
+  @include fill;
+  display: grid;
+  place-items: center;
+  padding: 2rem var(--gutter);
+  color: var(--c-beige);
+}
+
+.map__contours {
+  @include fill;
+
+  path {
+    fill: none;
+    stroke: var(--c-gold);
+    stroke-width: 0.8;
+    opacity: 0.22;
+  }
+}
+
+.map__content {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  text-align: center;
+  max-width: 30rem;
+
+  --fg-strong: var(--c-beige);
+  --bg: var(--c-forest-deep);
+}
+
+.map__pin {
+  color: var(--c-gold);
+}
+
+.map__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 300;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.map__notice {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(233, 227, 215, 0.6);
+}

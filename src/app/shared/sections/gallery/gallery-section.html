@@ -1,0 +1,35 @@
+<section class="section theme-light gallery" aria-labelledby="gallery-title">
+  <div class="container container--wide">
+    @if (showHeading()) {
+      <app-section-heading
+        titleId="gallery-title"
+        [eyebrow]="'gallery.eyebrow' | t"
+        [title]="'gallery.title' | t"
+        [lead]="'gallery.lead' | t"
+      />
+    } @else {
+      <h2 id="gallery-title" class="sr-only">{{ 'gallery.eyebrow' | t }}</h2>
+    }
+
+    <div class="filters" role="toolbar" [attr.aria-label]="'gallery.filterLabel' | t" appReveal="fade">
+      <button type="button" class="filters__btn" [class.is-active]="filter() === 'all'" [attr.aria-pressed]="filter() === 'all'"
+        (click)="setFilter('all')">{{ 'gallery.all' | t }}</button>
+      @for (c of categories(); track c) {
+        <button type="button" class="filters__btn" [class.is-active]="filter() === c" [attr.aria-pressed]="filter() === c"
+          (click)="setFilter(c)">{{ 'gallery.categories.' + c | t }}</button>
+      }
+    </div>
+
+    @for (key of [filter()]; track key) {
+      <app-gallery-grid [items]="items()" (open)="lightboxIndex.set($event)" />
+    }
+
+    @if (limit()) {
+      <div class="gallery__more" appReveal>
+        <a appButton variant="outline" routerLink="/gallery">{{ 'gallery.viewAll' | t }}</a>
+      </div>
+    }
+  </div>
+
+  <app-lightbox [items]="items()" [(index)]="lightboxIndex" />
+</section>

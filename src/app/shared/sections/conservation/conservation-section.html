@@ -1,0 +1,71 @@
+<section class="cons theme-forest" aria-labelledby="cons-title">
+  <!-- Full-bleed documentary image with parallax -->
+  <div class="cons__hero">
+    <div class="cons__bg" aria-hidden="true">
+      <app-media key="conservation-markhor" sizes="100vw" />
+    </div>
+    <div class="cons__shade" aria-hidden="true"></div>
+
+    <div class="container cons__intro">
+      <p class="eyebrow" appReveal="fade">{{ 'conservation.eyebrow' | t }}</p>
+      <h2 id="cons-title" class="display h1 cons__title" appReveal>{{ 'conservation.title' | t }}</h2>
+      <p class="lead cons__lead" appReveal [revealDelay]="140">{{ 'conservation.lead' | t }}</p>
+    </div>
+  </div>
+
+  <div class="container section cons__body">
+    <!-- Story + species card -->
+    <div class="cons__story">
+      <div class="prose cons__prose" appReveal>
+        <p class="cons__dropcap">{{ 'conservation.p1' | t }}</p>
+        <p>{{ 'conservation.p2' | t }}</p>
+      </div>
+
+      <aside class="species" appReveal [revealDelay]="150">
+        <div class="species__media">
+          <app-media key="conservation-detail" sizes="(min-width: 1024px) 30vw, 100vw" />
+        </div>
+        <div class="species__body">
+          <p class="micro">{{ 'conservation.speciesLabel' | t }}</p>
+          <p class="species__name">{{ 'conservation.species' | t }}</p>
+          <p class="species__latin">Capra falconeri</p>
+          <p class="species__text">{{ 'conservation.speciesText' | t }}</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Three pillars -->
+    <ol class="pillars">
+      @for (p of pillars(); track $index) {
+        <li class="pillars__item" appReveal [revealDelay]="$index * 120">
+          <span class="pillars__num">0{{ $index + 1 }}</span>
+          <h3 class="h3">{{ p.title }}</h3>
+          <p>{{ p.text }}</p>
+        </li>
+      }
+    </ol>
+
+    <figure class="cons__quote" appReveal>
+      <blockquote class="serif-quote">“{{ 'conservation.quote' | t }}”</blockquote>
+      <figcaption class="micro">— M-SAYYOD</figcaption>
+    </figure>
+
+    @if (variant() === 'full') {
+      <div class="principles">
+        <h3 class="eyebrow principles__heading" appReveal="fade">{{ 'conservation.principlesTitle' | t }}</h3>
+        <ul class="principles__list">
+          @for (p of principles(); track $index) {
+            <li class="principles__item" appReveal [revealDelay]="$index * 100">
+              <h4 class="h4">{{ p.title }}</h4>
+              <p>{{ p.text }}</p>
+            </li>
+          }
+        </ul>
+      </div>
+    } @else {
+      <div class="cons__cta" appReveal>
+        <a appButton routerLink="/conservation">{{ 'conservation.cta' | t }}</a>
+      </div>
+    }
+  </div>
+</section>

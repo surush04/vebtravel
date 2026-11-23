@@ -1,0 +1,186 @@
+{
+  "settings": {
+    "established": 2005,
+    "siteUrl": "https://www.example.com",
+    "contact": {
+      "email": null,
+      "phone": null,
+      "whatsapp": null
+    },
+    "location": {
+      "mapEmbedUrl": null,
+      "mapLink": null
+    },
+    "regionMap": {
+      "embedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=70.05%2C38.05%2C71.65%2C38.95&layer=mapnik",
+      "link": "https://www.openstreetmap.org/#map=9/38.50/70.85"
+    },
+    "social": [
+      {
+        "id": "instagram",
+        "url": null
+      },
+      {
+        "id": "facebook",
+        "url": null
+      },
+      {
+        "id": "youtube",
+        "url": null
+      },
+      {
+        "id": "telegram",
+        "url": null
+      }
+    ],
+    "heroVideo": {
+      "mp4": null,
+      "webm": null
+    }
+  },
+  "activities": [
+    {
+      "id": "hunting",
+      "media": "activity-hunting"
+    },
+    {
+      "id": "expeditions",
+      "media": "activity-expeditions"
+    },
+    {
+      "id": "ecotourism",
+      "media": "activity-ecotourism"
+    },
+    {
+      "id": "photography",
+      "media": "activity-photography"
+    },
+    {
+      "id": "conservation",
+      "media": "activity-conservation"
+    }
+  ],
+  "destinations": [
+    {
+      "id": "zighar",
+      "media": "dest-zighar"
+    },
+    {
+      "id": "darvoz",
+      "media": "dest-darvoz"
+    },
+    {
+      "id": "landscapes",
+      "media": "dest-landscapes"
+    },
+    {
+      "id": "habitats",
+      "media": "dest-habitats"
+    }
+  ],
+  "galleryCategories": [
+    "wildlife",
+    "mountains",
+    "expeditions",
+    "nature",
+    "activities"
+  ],
+  "gallery": [
+    {
+      "id": "g01",
+      "media": "gallery-01",
+      "category": "wildlife",
+      "orientation": "portrait"
+    },
+    {
+      "id": "g02",
+      "media": "gallery-02",
+      "category": "mountains",
+      "orientation": "landscape"
+    },
+    {
+      "id": "g03",
+      "media": "gallery-03",
+      "category": "nature",
+      "orientation": "landscape"
+    },
+    {
+      "id": "g04",
+      "media": "gallery-04",
+      "category": "expeditions",
+      "orientation": "portrait"
+    },
+    {
+      "id": "g05",
+      "media": "gallery-05",
+      "category": "wildlife",
+      "orientation": "landscape"
+    },
+    {
+      "id": "g06",
+      "media": "gallery-06",
+      "category": "mountains",
+      "orientation": "portrait"
+    },
+    {
+      "id": "g07",
+      "media": "gallery-07",
+      "category": "activities",
+      "orientation": "square"
+    },
+    {
+      "id": "g08",
+      "media": "gallery-08",
+      "category": "nature",
+      "orientation": "portrait"
+    },
+    {
+      "id": "g09",
+      "media": "gallery-09",
+      "category": "wildlife",
+      "orientation": "square"
+    },
+    {
+      "id": "g10",
+      "media": "gallery-10",
+      "category": "expeditions",
+      "orientation": "landscape"
+    },
+    {
+      "id": "g11",
+      "media": "gallery-11",
+      "category": "mountains",
+      "orientation": "landscape"
+    },
+    {
+      "id": "g12",
+      "media": "gallery-12",
+      "category": "nature",
+      "orientation": "square"
+    },
+    {
+      "id": "g13",
+      "media": "gallery-13",
+      "category": "activities",
+      "orientation": "portrait"
+    },
+    {
+      "id": "g14",
+      "media": "gallery-14",
+      "category": "wildlife",
+      "orientation": "portrait"
+    },
+    {
+      "id": "g15",
+      "media": "gallery-15",
+      "category": "expeditions",
+      "orientation": "portrait"
+    },
+    {
+      "id": "g16",
+      "media": "gallery-16",
+      "category": "mountains",
+      "orientation": "square"
+    }
+  ]
+}

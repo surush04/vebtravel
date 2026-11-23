@@ -1,0 +1,45 @@
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__media">
+    @if (hasVideo()) {
+      <video class="hero__video" [autoplay]="autoplay" [muted]="true" loop playsinline preload="metadata" aria-hidden="true">
+        @if (video().webm; as webm) { <source [src]="webm" type="video/webm" /> }
+        @if (video().mp4; as mp4) { <source [src]="mp4" type="video/mp4" /> }
+      </video>
+    } @else {
+      <app-media key="hero-markhor" [priority]="true" sizes="100vw" />
+    }
+  </div>
+  <div class="hero__overlay" aria-hidden="true"></div>
+
+  <div class="container hero__content">
+    <p class="eyebrow hero__eyebrow">{{ 'hero.eyebrow' | t }}</p>
+
+    <h1 id="hero-title" class="display hero__title">
+      @for (line of lines(); track $index) {
+        <span class="hero__line"><span [style.--i]="$index">{{ line }}</span></span>
+      }
+    </h1>
+
+    <p class="hero__subtitle">{{ 'hero.subtitle' | t }}</p>
+
+    <div class="hero__actions">
+      <a appButton routerLink="/activities">{{ 'hero.ctaPrimary' | t }}</a>
+      <a appButton variant="outline" routerLink="/contact" [icon]="null">{{ 'hero.ctaSecondary' | t }}</a>
+    </div>
+  </div>
+
+  <div class="hero__side" aria-hidden="true">
+    <span>{{ 'meta.established' | t }}</span>
+    <span class="hero__side-rule"></span>
+    <span>{{ 'meta.location' | t }}</span>
+  </div>
+
+  <div class="container hero__bottom">
+    <button type="button" class="hero__scroll" (click)="scrollDown()">
+      <span class="hero__scroll-track" aria-hidden="true"><span></span></span>
+      <span>{{ 'hero.scroll' | t }}</span>
+      <span class="sr-only">— {{ 'a11y.scroll' | t }}</span>
+    </button>
+    <p class="hero__caption"><span class="hero__dot" aria-hidden="true"></span>{{ 'hero.caption' | t }}</p>
+  </div>
+</section>

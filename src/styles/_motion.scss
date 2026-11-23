@@ -1,0 +1,89 @@
+@use 'mixins' as *;
+
+// ---- Scroll reveal (driven by RevealDirective) -------------------------
+@include motion {
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 2.25rem, 0);
+    transition:
+      opacity 1.1s var(--ease-out) var(--reveal-delay, 0ms),
+      transform 1.4s var(--ease-out) var(--reveal-delay, 0ms);
+  }
+
+  .reveal[data-reveal='fade'] {
+    transform: none;
+  }
+
+  .reveal[data-reveal='mask'] {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 1.6s var(--ease-in-out) var(--reveal-delay, 0ms);
+  }
+
+  .reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+
+  // ---- Route transitions (View Transitions API) ----------------------
+  ::view-transition-old(root) {
+    animation: vt-out 0.45s var(--ease-in-out) both;
+  }
+
+  ::view-transition-new(root) {
+    animation: vt-in 0.8s var(--ease-out) both;
+  }
+}
+
+@keyframes vt-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+// ---- Hover zoom for media inside interactive containers ----------------
+.media__img,
+.media__scene {
+  transition:
+    transform 1.6s var(--ease-out),
+    opacity 0.9s var(--ease-out);
+}
+
+@include hover {
+  .hover-zoom:hover .media__img,
+  .hover-zoom:hover .media__scene {
+    transform: scale(1.06);
+  }
+}
+
+.hover-zoom:focus-within .media__img,
+.hover-zoom:focus-within .media__scene {
+  transform: scale(1.04);
+}
+
+// ---- Accessibility: honour reduced-motion preferences -----------------
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

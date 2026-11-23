@@ -1,0 +1,127 @@
+@use 'mixins' as *;
+
+.page-hero {
+  --bg: var(--c-charcoal);
+  --fg: var(--c-beige);
+  --fg-strong: var(--c-white);
+  --fg-muted: rgba(233, 227, 215, 0.78);
+  --accent-text: var(--c-gold);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: max(34rem, 78svh);
+  padding-top: calc(var(--header-h) + 3rem);
+  padding-bottom: clamp(4.5rem, 9vw, 7rem);
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--fg);
+  background: var(--bg);
+
+  @include up(xl) {
+    min-height: min(82svh, 900px);
+  }
+}
+
+.page-hero__media {
+  @include fill;
+  z-index: -2;
+
+  @include motion {
+    animation: hero-settle 2.4s var(--ease-out) both;
+  }
+}
+
+.page-hero__overlay {
+  @include fill;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(10, 13, 11, 0.62) 0%, rgba(10, 13, 11, 0.12) 38%, rgba(10, 13, 11, 0.4) 70%, rgba(14, 18, 16, 0.94) 100%),
+    linear-gradient(90deg, rgba(10, 13, 11, 0.5) 0%, rgba(10, 13, 11, 0) 65%);
+}
+
+.page-hero__content {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  @include micro-caps;
+  font-size: 0.66rem;
+  color: var(--fg-muted);
+}
+
+.crumbs li + li::before {
+  content: '/';
+  margin-right: 0.6rem;
+  color: var(--c-gold);
+}
+
+.crumbs a:hover {
+  color: var(--c-white);
+}
+
+.page-hero__title {
+  font-size: var(--fs-h1);
+  max-width: none;
+
+  .line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.06em;
+  }
+
+  .line > span {
+    display: inline-block;
+
+    @include motion {
+      animation: line-up 1.3s var(--ease-out) both;
+      animation-delay: calc(0.15s + var(--i, 0) * 0.12s);
+    }
+  }
+}
+
+.page-hero__lead {
+  max-width: 34em;
+}
+
+.page-hero__meta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.75rem;
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-inline: auto;
+  @include micro-caps;
+  font-size: 0.62rem;
+  color: var(--fg-muted);
+
+  @include up(md) {
+    display: flex;
+  }
+}
+
+.page-hero__rule {
+  width: 3rem;
+  height: 1px;
+  background: var(--c-gold);
+}
+
+@keyframes line-up {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+@keyframes hero-settle {
+  from {
+    transform: scale(1.1);
+  }
+}

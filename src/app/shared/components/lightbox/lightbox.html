@@ -1,0 +1,50 @@
+@if (isOpen() && item(); as current) {
+  <div
+    #dialog
+    class="lightbox"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'a11y.gallery' | t"
+    (touchstart)="onTouchStart($event)"
+    (touchend)="onTouchEnd($event)"
+  >
+    <div class="lightbox__backdrop" (click)="close()" aria-hidden="true"></div>
+
+    <header class="lightbox__bar">
+      <p class="lightbox__count" aria-live="polite">
+        <span class="sr-only">{{ 'a11y.imageOf' | t: { current: index()! + 1, total: items().length } }}</span>
+        <span aria-hidden="true"><em>{{ (index()! + 1).toString().padStart(2, '0') }}</em> / {{ items().length.toString().padStart(2, '0') }}</span>
+      </p>
+      <div class="lightbox__tools">
+        @if (fullscreenSupported) {
+          <button type="button" class="lightbox__btn" (click)="toggleFullscreen()"
+            [attr.aria-label]="(isFullscreen() ? 'a11y.exitFullscreen' : 'a11y.fullscreen') | t">
+            <app-icon name="fullscreen" />
+          </button>
+        }
+        <button #closeBtn type="button" class="lightbox__btn" (click)="close()" [attr.aria-label]="'a11y.close' | t">
+          <app-icon name="close" />
+        </button>
+      </div>
+    </header>
+
+    <figure class="lightbox__stage">
+      @for (shown of [current]; track shown.id) {
+        <div class="lightbox__frame" [class.is-tall]="shown.orientation !== 'landscape'" [style.aspect-ratio]="ratio()">
+          <app-media [key]="shown.media" fit="contain" sizes="92vw" [priority]="true" />
+        </div>
+      }
+      <figcaption class="lightbox__caption">
+        <span class="lightbox__cat">{{ 'gallery.categories.' + current.category | t }}</span>
+        <span>{{ 'media.' + current.media | t }}</span>
+      </figcaption>
+    </figure>
+
+    <button type="button" class="lightbox__nav lightbox__nav--prev" (click)="prev()" [attr.aria-label]="'a11y.prev' | t">
+      <app-icon name="arrow-left" [size]="22" />
+    </button>
+    <button type="button" class="lightbox__nav lightbox__nav--next" (click)="next()" [attr.aria-label]="'a11y.next' | t">
+      <app-icon name="arrow" [size]="22" />
+    </button>
+  </div>
+}

@@ -1,0 +1,253 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.cons {
+  position: relative;
+  overflow: hidden;
+}
+
+// ---- Image hero with scroll-driven parallax --------------------------------------
+.cons__hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: max(36rem, 92svh);
+  padding-block: clamp(6rem, 12vw, 10rem) clamp(3rem, 6vw, 5rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cons__bg {
+  position: absolute;
+  inset: -12% 0;
+  z-index: -2;
+
+  @include motion {
+    @supports (animation-timeline: view()) {
+      animation: cons-parallax linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
+}
+
+.cons__shade {
+  @include fill;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, var(--c-forest) 0%, rgba(20, 43, 34, 0.35) 30%, rgba(20, 43, 34, 0.45) 60%, var(--c-forest) 100%),
+    linear-gradient(90deg, rgba(20, 43, 34, 0.75) 0%, rgba(20, 43, 34, 0) 70%);
+}
+
+.cons__intro {
+  display: grid;
+  gap: 1.75rem;
+}
+
+
+.cons__lead {
+  color: rgba(233, 227, 215, 0.88);
+}
+
+// ---- Body -----------------------------------------------------------------------------
+.cons__body {
+  padding-top: clamp(3rem, 6vw, 5rem);
+}
+
+.cons__story {
+  display: grid;
+  gap: 3rem;
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 6rem;
+    align-items: start;
+  }
+}
+
+.cons__prose {
+  font-size: 1.08rem;
+  max-width: 34em;
+}
+
+.cons__dropcap::first-letter {
+  float: left;
+  margin: 0.12em 0.14em 0 0;
+  font-family: var(--font-display);
+  font-size: 4.6em;
+  line-height: 0.78;
+  color: var(--c-gold);
+}
+
+.species {
+  display: grid;
+  border: 1px solid var(--line);
+  background: rgba(15, 33, 26, 0.6);
+
+  @include up(sm) {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  }
+
+  @include up(lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.species__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+
+  @include up(sm) {
+    aspect-ratio: auto;
+    min-height: 16rem;
+  }
+
+  @include up(lg) {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+}
+
+.species__body {
+  display: grid;
+  gap: 0.4rem;
+  padding: 2rem;
+}
+
+.species__name {
+  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 300;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--fg-strong);
+}
+
+.species__latin {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--c-gold);
+}
+
+.species__text {
+  margin-top: 0.75rem;
+  font-size: 0.92rem;
+  color: var(--fg-muted);
+}
+
+// ---- Pillars ------------------------------------------------------------------------------
+.pillars {
+  display: grid;
+  margin-top: clamp(4rem, 8vw, 7rem);
+  border-top: 1px solid var(--line);
+
+  @include up(md) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.pillars__item {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--line);
+
+  p {
+    color: var(--fg-muted);
+  }
+
+  @include up(md) {
+    padding: 3rem 2.5rem 1rem 0;
+    border-bottom: 0;
+
+    & + & {
+      padding-left: 2.5rem;
+      border-left: 1px solid var(--line);
+    }
+  }
+}
+
+.pillars__num {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--c-gold);
+}
+
+.cons__quote {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: center;
+  max-width: 48rem;
+  margin: clamp(4rem, 8vw, 7rem) auto 0;
+  text-align: center;
+
+  blockquote {
+    font-size: clamp(1.75rem, 3.4vw, 3rem);
+  }
+}
+
+.cons__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+// ---- Principles (Conservation page) ----------------------------------------------------
+.principles {
+  margin-top: clamp(5rem, 9vw, 8rem);
+}
+
+.principles__heading {
+  margin-bottom: 2.5rem;
+}
+
+.principles__list {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+
+  @include up(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up(lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.principles__item {
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+  padding: 2.25rem 2rem;
+  background: var(--c-forest);
+  transition: background-color 0.5s var(--ease-out);
+
+  p {
+    font-size: 0.94rem;
+    color: var(--fg-muted);
+  }
+
+  &:hover {
+    background: var(--c-forest-deep);
+  }
+}
+
+@keyframes cons-parallax {
+  from {
+    transform: translateY(-8%);
+  }
+  to {
+    transform: translateY(8%);
+  }
+}

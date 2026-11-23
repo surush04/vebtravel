@@ -1,0 +1,72 @@
+<section class="section theme-dark dest" aria-labelledby="dest-title">
+  <div class="container">
+    <app-section-heading
+      titleId="dest-title"
+      [eyebrow]="'destinations.eyebrow' | t"
+      [title]="'destinations.title' | t"
+      [lead]="'destinations.lead' | t"
+    >
+      @if (showLink()) {
+        <a class="text-link" routerLink="/destinations">{{ 'destinations.cta' | t }}</a>
+      }
+    </app-section-heading>
+
+    <div class="dest__layout">
+      <!-- Crossfading image stack -->
+      <div class="dest__stage" appReveal="mask">
+        @for (d of destinations(); track d.id; let i = $index) {
+          <div class="dest__image" [class.is-active]="active() === i" [attr.aria-hidden]="active() !== i">
+            <app-media [key]="d.media" sizes="(min-width: 1024px) 55vw, 100vw" />
+          </div>
+        }
+        <div class="dest__stage-meta" aria-hidden="true">
+          <span class="index-num">0{{ active() + 1 }}</span>
+          <span class="dest__stage-rule"></span>
+          @if (current(); as c) {
+            <span>{{ 'destinations.items.' + c.id + '.tag' | t }}</span>
+          }
+        </div>
+      </div>
+
+      <!-- Destination list (accordion) -->
+      <ol class="dest__list">
+        @for (d of destinations(); track d.id; let i = $index) {
+          <li class="dest__item" [class.is-active]="active() === i" appReveal [revealDelay]="i * 90">
+            <h3>
+              <button
+                type="button"
+                class="dest__trigger"
+                [attr.aria-expanded]="active() === i"
+                [attr.aria-controls]="'dest-panel-' + d.id"
+                [id]="'dest-trigger-' + d.id"
+                (click)="select(i)"
+                (mouseenter)="select(i)"
+              >
+                <span class="dest__num">0{{ i + 1 }}</span>
+                <span class="dest__name">{{ 'destinations.items.' + d.id + '.name' | t }}</span>
+                <app-icon class="dest__arrow" name="arrow" [size]="20" />
+              </button>
+            </h3>
+            <div class="dest__panel" [id]="'dest-panel-' + d.id" role="region" [attr.aria-labelledby]="'dest-trigger-' + d.id">
+              <div class="dest__panel-inner">
+                <p class="dest__tag">{{ 'destinations.items.' + d.id + '.tag' | t }}</p>
+                <p class="dest__text">{{ 'destinations.items.' + d.id + '.text' | t }}</p>
+              </div>
+            </div>
+          </li>
+        }
+      </ol>
+    </div>
+
+    @if (showMap()) {
+      <div class="dest__map">
+        <div class="dest__map-text" appReveal>
+          <p class="eyebrow">{{ 'destinations.mapEyebrow' | t }}</p>
+          <h3 class="h3">{{ 'destinations.mapTitle' | t }}</h3>
+          <p class="prose">{{ 'destinations.mapText' | t }}</p>
+        </div>
+        <app-map-embed appReveal [revealDelay]="120" [url]="map().embedUrl" [link]="map().link" [title]="'destinations.mapTitle' | t" />
+      </div>
+    }
+  </div>
+</section>

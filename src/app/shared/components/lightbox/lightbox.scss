@@ -1,0 +1,160 @@
+@use 'mixins' as *;
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  color: var(--c-beige);
+  background: #0b0e0c;
+
+  @include motion {
+    animation: lb-in 0.5s var(--ease-out) both;
+  }
+}
+
+.lightbox__backdrop {
+  @include fill;
+}
+
+.lightbox__bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem var(--gutter);
+  min-height: 4.5rem;
+}
+
+.lightbox__count {
+  @include micro-caps;
+  color: rgba(233, 227, 215, 0.7);
+
+  em {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--c-gold);
+  }
+}
+
+.lightbox__tools {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lightbox__btn,
+.lightbox__nav {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid rgba(233, 227, 215, 0.25);
+  transition:
+    border-color 0.3s var(--ease-out),
+    background-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out);
+
+  &:hover {
+    border-color: var(--c-gold);
+    color: var(--c-gold);
+  }
+}
+
+.lightbox__stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  min-height: 0;
+  padding: 0 var(--gutter) 5.5rem;
+  pointer-events: none;
+
+  @include up(md) {
+    padding-bottom: 2.5rem;
+  }
+}
+
+.lightbox__frame {
+  position: relative;
+  width: min(92vw, calc((100svh - 13rem) * 1.5));
+  max-width: 100%;
+  max-height: calc(100svh - 13rem);
+  pointer-events: auto;
+
+  @include motion {
+    animation: lb-image 0.7s var(--ease-out) both;
+  }
+}
+
+// Portrait/square images are constrained by height instead
+.lightbox__frame.is-tall {
+  width: auto;
+  height: min(calc(100svh - 13rem), 115vw);
+}
+
+.lightbox__caption {
+  display: grid;
+  gap: 0.25rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  max-width: 40rem;
+}
+
+.lightbox__cat {
+  @include micro-caps;
+  font-size: 0.62rem;
+  color: var(--c-gold);
+}
+
+.lightbox__nav {
+  position: absolute;
+  z-index: 2;
+  bottom: 1.25rem;
+  background: rgba(11, 14, 12, 0.6);
+
+  &--prev {
+    left: var(--gutter);
+  }
+
+  &--next {
+    right: var(--gutter);
+  }
+
+  @include up(md) {
+    top: 50%;
+    bottom: auto;
+    width: 3.75rem;
+    height: 3.75rem;
+    transform: translateY(-50%);
+
+    &--prev {
+      left: 1.5rem;
+    }
+
+    &--next {
+      right: 1.5rem;
+    }
+  }
+}
+
+@keyframes lb-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes lb-image {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}

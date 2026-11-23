@@ -1,0 +1,93 @@
+<footer class="footer">
+  @if (showCta()) {
+    <section class="cta" aria-labelledby="footer-cta-title">
+      <div class="cta__media" aria-hidden="true">
+        <app-media key="contact-landscape" sizes="100vw" [decorative]="true" />
+      </div>
+      <div class="container cta__inner">
+        <p class="eyebrow" appReveal="fade">{{ 'footer.ctaEyebrow' | t }}</p>
+        <h2 id="footer-cta-title" class="display h1 cta__title" appReveal>{{ 'footer.ctaTitle' | t }}</h2>
+        <div appReveal [revealDelay]="150">
+          <a appButton routerLink="/contact">{{ 'footer.ctaButton' | t }}</a>
+        </div>
+      </div>
+    </section>
+  }
+
+  <div class="container footer__main">
+    <div class="footer__brand">
+      <a routerLink="/" [attr.aria-label]="'a11y.home' | t"><app-logo [subtitle]="true" /></a>
+      <p class="footer__desc">{{ 'footer.description' | t }}</p>
+      <p class="footer__tagline">{{ 'meta.tagline' | t }}</p>
+    </div>
+
+    <nav class="footer__col" [attr.aria-label]="'a11y.footerNav' | t">
+      <h2 class="footer__heading">{{ 'footer.explore' | t }}</h2>
+      <ul>
+        @for (item of nav; track item.path) {
+          <li><a [routerLink]="item.path">{{ item.key | t }}</a></li>
+        }
+      </ul>
+    </nav>
+
+    <div class="footer__col">
+      <h2 class="footer__heading">{{ 'footer.activities' | t }}</h2>
+      <ul>
+        @for (a of activities(); track a.id) {
+          <li><a routerLink="/activities" [fragment]="a.id">{{ 'activities.items.' + a.id + '.title' | t }}</a></li>
+        }
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h2 class="footer__heading">{{ 'footer.contact' | t }}</h2>
+      <ul class="footer__contact">
+        <li><app-icon name="pin" [size]="18" /><span>{{ 'meta.location' | t }}</span></li>
+        <li>
+          <app-icon name="mail" [size]="18" />
+          @if (settings().contact.email; as email) {
+            <a [href]="'mailto:' + email">{{ email }}</a>
+          } @else {
+            <span class="is-tbc">{{ 'contact.info.email' | t }} — {{ 'common.tbc' | t }}</span>
+          }
+        </li>
+        <li>
+          <app-icon name="phone" [size]="18" />
+          @if (settings().contact.phone; as phone) {
+            <a [href]="tel(phone)">{{ phone }}</a>
+          } @else {
+            <span class="is-tbc">{{ 'contact.info.phone' | t }} — {{ 'common.tbc' | t }}</span>
+          }
+        </li>
+        @if (contact.hasWhatsapp()) {
+          <li>
+            <app-icon name="whatsapp" [size]="18" />
+            <a [href]="contact.whatsappUrl()" target="_blank" rel="noopener">WhatsApp</a>
+          </li>
+        }
+      </ul>
+
+      @if (socials().length) {
+        <ul class="footer__social" [attr.aria-label]="'footer.social' | t">
+          @for (s of socials(); track s.id) {
+            <li>
+              <a [href]="s.url!" target="_blank" rel="noopener" [attr.aria-label]="s.id">
+                <app-icon [name]="s.id" [size]="20" />
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>© {{ year }} M-SAYYOD. {{ 'footer.rights' | t }}</p>
+    <app-language-switcher />
+    <button type="button" class="footer__top" (click)="scroll.toTop()">
+      {{ 'footer.backToTop' | t }} <app-icon name="arrow-up" [size]="16" />
+    </button>
+  </div>
+
+  <div class="footer__giant" aria-hidden="true">M-SAYYOD</div>
+</footer>

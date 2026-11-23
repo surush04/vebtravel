@@ -1,0 +1,51 @@
+import { inject } from '@angular/core';
+import { CanActivateFn, CanDeactivateFn, Router, Routes } from '@angular/router';
+import { L } from './admin.labels';
+import { AdminApi } from './admin-api.service';
+import { AdminShellComponent } from './admin-shell';
+import { AdminStore } from './admin-store.service';
+
+const authGuard: CanActivateFn = async () => {
+  const api = inject(AdminApi);
+  const router = inject(Router);
+  if (!api.token()) return router.parseUrl('/admin/login');
+  try {
+    await api.session();
+    return true;
+  } catch {
+    return router.parseUrl('/admin/login');
+  }
+};
+
+const unsavedGuard: CanDeactivateFn<unknown> = () => {
+  const store = inject(AdminStore);
+  return !store.dirty() || confirm(L.leaveConfirm);
+};
+
+export const ADMIN_ROUTES: Routes = [
+  { path: 'login', loadComponent: () => import('./pages/login.page').then((m) => m.LoginPage) },
+  {
+    path: '',
+    component: AdminShellComponent,
+    canActivate: [authGuard],
+    canDeactivate: [unsavedGuard],
+    children: [
+      { path: '', loadComponent: () => import('./pages/dashboard.page').then((m) => m.DashboardPage) },
+      { path: 'texts', loadComponent: () => import('./pages/texts.page').then((m) => m.TextsPage) },
+      {
+        path: 'activities',
+        loadComponent: () => import('./pages/collection.page').then((m) => m.CollectionPage),
+        data: { collection: 'activities' },
+      },
+      {
+        path: 'destinations',
+        loadComponent: () => import('./pages/collection.page').then((m) => m.CollectionPage),
+        data: { collection: 'destinations' },
+      },
+      { path: 'gallery', loadComponent: () => import('./pages/gallery.page').then((m) => m.GalleryAdminPage) },
+      { path: 'images', loadComponent: () => import('./pages/images.page').then((m) => m.ImagesPage) },
+      { path: 'messages', loadComponent: () => import('./pages/messages.page').then((m) => m.MessagesPage) },
+      { path: 'settings', loadComponent: () => import('./pages/settings.page').then((m) => m.SettingsPage) },
+    ],
+  },
+];

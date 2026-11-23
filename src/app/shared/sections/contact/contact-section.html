@@ -1,0 +1,54 @@
+<section class="section theme-light contact" id="contact" aria-labelledby="contact-title">
+  <div class="container contact__layout">
+    <div class="contact__info">
+      <p class="eyebrow" appReveal="fade">{{ 'contact.eyebrow' | t }}</p>
+      <h2 id="contact-title" class="display h2" appReveal>{{ 'contact.title' | t }}</h2>
+      <p class="lead" appReveal [revealDelay]="120">{{ 'contact.lead' | t }}</p>
+
+      <dl class="details" appReveal [revealDelay]="180">
+        <div class="details__row">
+          <dt><app-icon name="pin" [size]="18" />{{ 'contact.info.location' | t }}</dt>
+          <dd>{{ 'meta.location' | t }}</dd>
+        </div>
+        <div class="details__row">
+          <dt><app-icon name="mail" [size]="18" />{{ 'contact.info.email' | t }}</dt>
+          <dd>
+            @if (settings().contact.email; as email) {
+              <a [href]="'mailto:' + email">{{ email }}</a>
+            } @else {
+              <span class="is-tbc">{{ 'common.tbc' | t }}</span>
+            }
+          </dd>
+        </div>
+        <div class="details__row">
+          <dt><app-icon name="phone" [size]="18" />{{ 'contact.info.phone' | t }}</dt>
+          <dd>
+            @if (settings().contact.phone; as phone) {
+              <a [href]="tel(phone)">{{ phone }}</a>
+            } @else {
+              <span class="is-tbc">{{ 'common.tbc' | t }}</span>
+            }
+          </dd>
+        </div>
+      </dl>
+
+      @if (contact.hasWhatsapp()) {
+        <div appReveal [revealDelay]="220">
+          <a appButton variant="outline" icon="whatsapp" [href]="contact.whatsappUrl()" target="_blank" rel="noopener">
+            {{ 'contact.whatsappCta' | t }}
+          </a>
+        </div>
+      }
+
+      @if (settings().location.mapEmbedUrl; as mapUrl) {
+        <div class="contact__map" appReveal>
+          <app-map-embed [url]="mapUrl" [link]="settings().location.mapLink" [title]="'contact.mapTitle' | t" ratio="4 / 3" />
+        </div>
+      }
+    </div>
+
+    <div class="contact__form" appReveal [revealDelay]="150">
+      <app-contact-form [activity]="activity()" />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,60 @@
+<app-page-hero
+  media="activity-expeditions"
+  [crumb]="'nav.activities' | t"
+  [eyebrow]="'pages.activities.eyebrow' | t"
+  [title]="'pages.activities.title' | t"
+  [lead]="'pages.activities.lead' | t"
+/>
+
+<section class="section theme-light experiences" aria-labelledby="experiences-title">
+  <div class="container">
+    <h2 id="experiences-title" class="sr-only">{{ 'activities.eyebrow' | t }}</h2>
+
+    <!-- Index -->
+    <nav class="toc" [attr.aria-label]="'activities.eyebrow' | t" appReveal="fade">
+      @for (a of activities(); track a.id; let i = $index) {
+        <a class="toc__link" routerLink="/activities" [fragment]="a.id">
+          <span class="index-num">0{{ i + 1 }}</span>
+          {{ 'activities.items.' + a.id + '.title' | t }}
+        </a>
+      }
+    </nav>
+
+    @for (a of activities(); track a.id; let i = $index; let odd = $odd) {
+      <article class="exp" [class.exp--reverse]="odd" [id]="a.id" [attr.aria-labelledby]="'exp-' + a.id">
+        <figure class="exp__media hover-zoom" appReveal="mask">
+          <app-media [key]="a.media" sizes="(min-width: 1024px) 55vw, 100vw" />
+          <span class="exp__num" aria-hidden="true">0{{ i + 1 }}</span>
+        </figure>
+
+        <div class="exp__body">
+          <p class="eyebrow" appReveal="fade">0{{ i + 1 }} — {{ 'nav.activities' | t }}</p>
+          <h3 class="display h2 exp__title" [id]="'exp-' + a.id" appReveal>{{ 'activities.items.' + a.id + '.title' | t }}</h3>
+          <p class="lead" appReveal [revealDelay]="80">{{ 'activities.items.' + a.id + '.summary' | t }}</p>
+          <p class="prose" appReveal [revealDelay]="120">{{ 'activities.items.' + a.id + '.description' | t }}</p>
+
+          <div class="exp__points" appReveal [revealDelay]="160">
+            <h4 class="micro">{{ 'activities.pointsTitle' | t }}</h4>
+            <ul>
+              @for (p of points(a.id); track $index) {
+                <li>{{ p }}</li>
+              }
+            </ul>
+          </div>
+
+          @if (note(a.id); as text) {
+            <p class="exp__note" appReveal role="note">
+              <strong>{{ 'activities.noteLabel' | t }}.</strong> {{ text }}
+            </p>
+          }
+
+          <div appReveal [revealDelay]="200">
+            <a appButton routerLink="/contact" [queryParams]="{ activity: a.id }">{{ 'activities.pageCta' | t }}</a>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+</section>
+
+<app-why-section />

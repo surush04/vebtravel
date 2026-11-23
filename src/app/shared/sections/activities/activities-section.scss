@@ -1,0 +1,104 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.activities {
+  overflow: hidden;
+}
+
+// ---- Touch-first: horizontal snap carousel -----------------------------------
+.activities__track {
+  display: flex;
+  gap: 0.9rem;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.activities__item {
+  flex: 0 0 min(84%, 24rem);
+  scroll-snap-align: start;
+  height: min(72svh, 34rem);
+  min-height: 28rem;
+
+  app-activity-card {
+    height: 100%;
+  }
+
+  @include up(md) {
+    flex-basis: min(46%, 26rem);
+  }
+}
+
+.activities__progress {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  @include micro-caps;
+  font-size: 0.64rem;
+  color: var(--fg-muted);
+
+  em {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--c-gold);
+  }
+}
+
+.activities__bar {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+
+  span {
+    position: absolute;
+    inset: 0;
+    background: var(--c-gold);
+    transform-origin: left;
+    transition: transform 0.3s linear;
+  }
+}
+
+// ---- Desktop: expanding panels --------------------------------------------------
+@include up(lg) {
+  .activities__track {
+    gap: 0.75rem;
+    height: clamp(34rem, 74vh, 46rem);
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .activities__item {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 100%;
+    min-height: 0;
+    transition: flex-grow 0.9s var(--ease-out);
+
+    &.is-active {
+      flex-grow: 3.6;
+    }
+  }
+
+  .activities__progress {
+    display: none;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "M-SAYYOD",
+  "short_name": "M-SAYYOD",
+  "description": "Wildlife conservation and mountain tourism in Darvoz, Tajikistan.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#151A17",
+  "theme_color": "#151A17",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

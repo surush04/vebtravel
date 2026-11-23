@@ -1,0 +1,71 @@
+<header class="bar">
+  <div class="bar__inner">
+    <a class="bar__logo" routerLink="/" [attr.aria-label]="'a11y.home' | t">
+      <app-logo />
+    </a>
+
+    <nav class="bar__nav" [attr.aria-label]="'a11y.mainNav' | t">
+      <ul>
+        @for (item of nav; track item.path) {
+          <li>
+            <a
+              [routerLink]="item.path"
+              routerLinkActive="is-active"
+              ariaCurrentWhenActive="page"
+              [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+              >{{ item.key | t }}</a
+            >
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="bar__tools">
+      <app-language-switcher class="bar__lang" />
+      <button
+        #toggleBtn
+        type="button"
+        class="bar__toggle"
+        aria-controls="site-menu"
+        [attr.aria-expanded]="open()"
+        [attr.aria-label]="(open() ? 'a11y.closeMenu' : 'a11y.openMenu') | t"
+        (click)="toggle()"
+      >
+        <span class="bar__toggle-label" aria-hidden="true">{{ 'nav.menu' | t }}</span>
+        <span class="burger" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Full-screen mobile / tablet menu -->
+<div id="site-menu" class="menu" [class.is-open]="open()" [attr.inert]="open() ? null : ''" [attr.aria-hidden]="!open()">
+  <div class="menu__inner">
+    <nav [attr.aria-label]="'a11y.mainNav' | t">
+      <ol class="menu__list">
+        @for (item of nav; track item.path; let i = $index; let first = $first) {
+          <li [style.--i]="i">
+            @if (first) {
+              <a #firstLink [routerLink]="item.path" routerLinkActive="is-active" ariaCurrentWhenActive="page"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="close()">
+                <span class="menu__num">0{{ i + 1 }}</span>
+                <span class="menu__label">{{ item.key | t }}</span>
+              </a>
+            } @else {
+              <a [routerLink]="item.path" routerLinkActive="is-active" ariaCurrentWhenActive="page" (click)="close()">
+                <span class="menu__num">0{{ i + 1 }}</span>
+                <span class="menu__label">{{ item.key | t }}</span>
+              </a>
+            }
+          </li>
+        }
+      </ol>
+    </nav>
+
+    <div class="menu__footer">
+      <app-language-switcher size="large" />
+      <p class="menu__tagline">{{ 'meta.tagline' | t }}</p>
+      <p class="micro">{{ 'meta.location' | t }} · {{ 'meta.established' | t }}</p>
+    </div>
+  </div>
+</div>

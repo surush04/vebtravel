@@ -1,0 +1,58 @@
+<section class="section theme-light about" aria-labelledby="about-title">
+  <div class="container">
+    <!-- Heading row -->
+    <div class="about__head">
+      <p class="eyebrow" appReveal="fade">{{ 'about.eyebrow' | t }}</p>
+      <h2 id="about-title" class="display h2 about__title" appReveal>{{ 'about.title' | t }}</h2>
+      <p class="lead about__lead" appReveal [revealDelay]="120">{{ 'about.lead' | t }}</p>
+    </div>
+
+    <!-- Editorial composition -->
+    <div class="about__grid">
+      <figure class="about__figure about__figure--main" appReveal="mask">
+        <app-media key="about-main" sizes="(min-width: 1024px) 55vw, 100vw" />
+      </figure>
+
+      <figure class="about__figure about__figure--detail" appReveal="mask" [revealDelay]="200">
+        <app-media key="about-detail" sizes="(min-width: 1024px) 24vw, 60vw" />
+      </figure>
+
+      <span class="about__year" aria-hidden="true">2005</span>
+
+      <div class="about__text">
+        <div class="prose" appReveal>
+          <p>{{ 'about.p1' | t }}</p>
+          <p>{{ 'about.p2' | t }}</p>
+        </div>
+        <blockquote class="serif-quote about__quote" appReveal [revealDelay]="100">
+          “{{ 'about.quote' | t }}”
+        </blockquote>
+        @if (variant() === 'teaser') {
+          <div appReveal [revealDelay]="160">
+            <a appButton variant="outline" routerLink="/about">{{ 'about.cta' | t }}</a>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Timeline from 2005 -->
+    <div class="about__timeline">
+      <app-timeline [heading]="'about.timelineTitle' | t" [entries]="timeline()" />
+    </div>
+
+    @if (variant() === 'full') {
+      <div class="values">
+        <h3 class="micro values__heading" appReveal="fade">{{ 'about.valuesTitle' | t }}</h3>
+        <ul class="values__list">
+          @for (v of values(); track $index) {
+            <li class="values__item" appReveal [revealDelay]="$index * 120">
+              <span class="index-num">0{{ $index + 1 }}</span>
+              <h4 class="h3">{{ v.title }}</h4>
+              <p>{{ v.text }}</p>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</section>

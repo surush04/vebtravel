@@ -1,0 +1,88 @@
+<form class="cform" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <div class="cform__grid">
+    <!-- Full name -->
+    <div class="field" [class.is-invalid]="invalid(form.controls.name)">
+      <input id="cf-name" class="field__input" type="text" formControlName="name" placeholder=" "
+        autocomplete="name" required [attr.aria-invalid]="invalid(form.controls.name)"
+        [attr.aria-describedby]="error('name') ? 'cf-name-err' : null" />
+      <label class="field__label" for="cf-name">{{ 'contact.form.name' | t }} <span aria-hidden="true">*</span></label>
+      @if (error('name'); as key) { <p id="cf-name-err" class="field__error">{{ key | t }}</p> }
+    </div>
+
+    <!-- Email -->
+    <div class="field" [class.is-invalid]="invalid(form.controls.email)">
+      <input id="cf-email" class="field__input" type="email" formControlName="email" placeholder=" "
+        autocomplete="email" inputmode="email" required [attr.aria-invalid]="invalid(form.controls.email)"
+        [attr.aria-describedby]="error('email') ? 'cf-email-err' : null" />
+      <label class="field__label" for="cf-email">{{ 'contact.form.email' | t }} <span aria-hidden="true">*</span></label>
+      @if (error('email'); as key) { <p id="cf-email-err" class="field__error">{{ key | t }}</p> }
+    </div>
+
+    <!-- Phone -->
+    <div class="field" [class.is-invalid]="invalid(form.controls.phone)">
+      <input id="cf-phone" class="field__input" type="tel" formControlName="phone" placeholder=" "
+        autocomplete="tel" inputmode="tel" [attr.aria-invalid]="invalid(form.controls.phone)"
+        [attr.aria-describedby]="error('phone') ? 'cf-phone-err' : null" />
+      <label class="field__label" for="cf-phone">{{ 'contact.form.phone' | t }} <em>({{ 'contact.form.optional' | t }})</em></label>
+      @if (error('phone'); as key) { <p id="cf-phone-err" class="field__error">{{ key | t }}</p> }
+    </div>
+
+    <!-- Country -->
+    <div class="field">
+      <input id="cf-country" class="field__input" type="text" formControlName="country" placeholder=" "
+        autocomplete="country-name" />
+      <label class="field__label" for="cf-country">{{ 'contact.form.country' | t }} <em>({{ 'contact.form.optional' | t }})</em></label>
+    </div>
+
+    <!-- Preferred activity -->
+    <div class="field field--select field--full">
+      <select id="cf-activity" class="field__input" formControlName="activity">
+        <option value="">{{ 'contact.form.activityPlaceholder' | t }}</option>
+        @for (a of activities(); track a.id) {
+          <option [value]="a.id">{{ 'activities.items.' + a.id + '.title' | t }}</option>
+        }
+        <option value="other">{{ 'contact.form.activityOther' | t }}</option>
+      </select>
+      <label class="field__label is-static" for="cf-activity">{{ 'contact.form.activity' | t }}</label>
+      <span class="field__chevron" aria-hidden="true"></span>
+    </div>
+
+    <!-- Message -->
+    <div class="field field--full" [class.is-invalid]="invalid(form.controls.message)">
+      <textarea id="cf-message" class="field__input field__textarea" formControlName="message" placeholder=" "
+        rows="5" required [attr.aria-invalid]="invalid(form.controls.message)"
+        [attr.aria-describedby]="error('message') ? 'cf-message-err' : null"></textarea>
+      <label class="field__label" for="cf-message">{{ 'contact.form.message' | t }} <span aria-hidden="true">*</span></label>
+      @if (error('message'); as key) { <p id="cf-message-err" class="field__error">{{ key | t }}</p> }
+    </div>
+
+    <!-- Honeypot (hidden from people) -->
+    <div class="cform__hp" aria-hidden="true">
+      <label for="cf-website">Website</label>
+      <input id="cf-website" type="text" formControlName="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <!-- Consent -->
+    <div class="check field--full" [class.is-invalid]="invalid(form.controls.consent)">
+      <input id="cf-consent" type="checkbox" formControlName="consent" [attr.aria-invalid]="invalid(form.controls.consent)"
+        [attr.aria-describedby]="error('consent') ? 'cf-consent-err' : null" />
+      <label for="cf-consent"><span class="check__box" aria-hidden="true"></span>{{ 'contact.form.consent' | t }}</label>
+      @if (error('consent'); as key) { <p id="cf-consent-err" class="field__error">{{ key | t }}</p> }
+    </div>
+  </div>
+
+  <div class="cform__footer">
+    <button appButton type="submit" [attr.aria-busy]="status() === 'sending'" [disabled]="status() === 'sending'">
+      {{ (status() === 'sending' ? 'contact.form.sending' : 'contact.form.submit') | t }}
+    </button>
+
+    <div class="cform__status" role="status" aria-live="polite">
+      @switch (status()) {
+        @case ('sent') { <p class="is-success">{{ 'contact.form.success' | t }}</p> }
+        @case ('whatsapp') { <p class="is-success">{{ 'contact.form.whatsapp' | t }}</p> }
+        @case ('error') { <p class="is-error">{{ 'contact.form.error' | t }}</p> }
+        @case ('unconfigured') { <p class="is-note">{{ 'contact.form.unconfigured' | t }}</p> }
+      }
+    </div>
+  </div>
+</form>

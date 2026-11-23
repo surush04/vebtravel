@@ -1,0 +1,34 @@
+<section class="section theme-forest activities" aria-labelledby="activities-title">
+  <div class="container">
+    <app-section-heading
+      titleId="activities-title"
+      [eyebrow]="'activities.eyebrow' | t"
+      [title]="'activities.title' | t"
+      [lead]="'activities.lead' | t"
+    >
+      <a class="text-link" routerLink="/activities">{{ 'activities.viewAll' | t }}</a>
+    </app-section-heading>
+  </div>
+
+  <div class="container container--wide activities__wrap" appReveal>
+    <ul class="activities__track" #track (scroll)="onTrackScroll()">
+      @for (activity of activities(); track activity.id; let i = $index) {
+        <li
+          class="activities__item"
+          [class.is-active]="active() === i"
+          (mouseenter)="active.set(i)"
+          (focusin)="active.set(i)"
+        >
+          <app-activity-card mode="panel" [activity]="activity" [index]="pad(i + 1)" [active]="active() === i" />
+        </li>
+      }
+    </ul>
+
+    <!-- Touch carousel indicator -->
+    <div class="activities__progress" aria-hidden="true">
+      <span class="activities__count"><em>{{ pad(current() + 1) }}</em> / {{ pad(activities().length) }}</span>
+      <span class="activities__bar"><span [style.transform]="'scaleX(' + (0.2 + progress() * 0.8) + ')'"></span></span>
+      <span class="activities__hint">{{ 'common.swipe' | t }}</span>
+    </div>
+  </div>
+</section>

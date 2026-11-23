@@ -1,0 +1,230 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.cform__grid {
+  display: grid;
+  gap: 2.25rem 2rem;
+
+  @include up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.field--full {
+  @include up(md) {
+    grid-column: 1 / -1;
+  }
+}
+
+// ---- Underlined field with floating label --------------------------------
+.field {
+  position: relative;
+  display: grid;
+}
+
+.field__input {
+  width: 100%;
+  min-height: 3.6rem;
+  padding: 1.5rem 0 0.6rem;
+  font-size: 1rem;
+  color: var(--fg-strong);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  outline: none;
+  appearance: none;
+  transition: border-color 0.4s var(--ease-out);
+
+  &:focus {
+    border-bottom-color: var(--accent-text);
+  }
+
+  &:-webkit-autofill {
+    -webkit-text-fill-color: var(--fg-strong);
+    transition: background-color 9999s;
+  }
+}
+
+.field__textarea {
+  min-height: 9rem;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.field--select .field__input {
+  padding-right: 2rem;
+  cursor: pointer;
+
+  option {
+    color: var(--c-charcoal);
+    background: var(--c-beige);
+  }
+}
+
+.field__chevron {
+  position: absolute;
+  right: 0.35rem;
+  top: 2rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.field__label {
+  position: absolute;
+  left: 0;
+  top: 1.45rem;
+  font-size: 1rem;
+  color: var(--fg-muted);
+  transform-origin: left top;
+  transition:
+    transform 0.4s var(--ease-out),
+    color 0.4s var(--ease-out);
+  pointer-events: none;
+
+  em {
+    font-style: normal;
+    font-size: 0.85em;
+    opacity: 0.7;
+  }
+
+  span {
+    color: var(--accent-text);
+  }
+}
+
+.field__input:focus + .field__label,
+.field__input:not(:placeholder-shown) + .field__label,
+.field__label.is-static {
+  transform: translateY(-1.3rem) scale(0.74);
+  color: var(--accent-text);
+  letter-spacing: 0.04em;
+}
+
+.field__error {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #a5432f;
+}
+
+:host-context(.theme-dark) .field__error,
+:host-context(.theme-forest) .field__error {
+  color: #e39a83;
+}
+
+.is-invalid .field__input {
+  border-bottom-color: currentColor;
+  color: inherit;
+}
+
+// ---- Checkbox ------------------------------------------------------------
+.check {
+  position: relative;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+  }
+
+  label {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--fg-muted);
+    cursor: pointer;
+  }
+}
+
+.check__box {
+  position: relative;
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.1rem;
+  border: 1px solid var(--fg-muted);
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0.4rem;
+    top: 0.15rem;
+    width: 0.35rem;
+    height: 0.65rem;
+    border-right: 1.5px solid var(--c-charcoal);
+    border-bottom: 1.5px solid var(--c-charcoal);
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.3s var(--ease-out);
+  }
+}
+
+.check input:checked + label .check__box {
+  background: var(--c-gold);
+  border-color: var(--c-gold);
+
+  &::after {
+    transform: rotate(45deg) scale(1);
+  }
+}
+
+.check input:focus-visible + label .check__box {
+  outline: 2px solid var(--c-gold);
+  outline-offset: 3px;
+}
+
+// ---- Honeypot --------------------------------------------------------------
+.cform__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+// ---- Footer -----------------------------------------------------------------
+.cform__footer {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2.75rem;
+
+  @include up(sm) {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  button {
+    width: 100%;
+
+    @include up(sm) {
+      width: auto;
+    }
+  }
+}
+
+.cform__status p {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  padding-left: 1rem;
+  border-left: 2px solid var(--c-gold);
+  color: var(--fg);
+
+  &.is-error {
+    border-color: #a5432f;
+  }
+}

@@ -1,0 +1,56 @@
+@use 'mixins' as *;
+
+:host {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--c-charcoal-2);
+}
+
+:host(.media--ratio) {
+  height: auto;
+}
+
+picture,
+.media__img,
+.media__scene {
+  @include fill;
+}
+
+.media__img {
+  object-fit: cover;
+  opacity: 0;
+}
+
+:host(.is-loaded) .media__img {
+  opacity: 1;
+}
+
+:host(.media--contain) {
+  background: transparent;
+
+  .media__img {
+    object-fit: contain;
+  }
+}
+
+.media__scene {
+  background-size: cover;
+  background-position: center;
+}
+
+.media__slot {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  padding: 0.25rem 0.5rem;
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: rgba(233, 227, 215, 0.75);
+  background: rgba(10, 13, 11, 0.55);
+  border: 1px solid rgba(197, 164, 109, 0.35);
+  pointer-events: none;
+}

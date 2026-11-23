@@ -1,0 +1,234 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.hero {
+  --fg-strong: var(--c-white);
+  --bg: var(--c-charcoal);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100svh;
+  padding-top: calc(var(--header-h) + 2.5rem);
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--c-beige);
+  background: var(--c-charcoal);
+
+  @supports not (min-height: 100svh) {
+    min-height: 100vh;
+  }
+}
+
+.hero__media {
+  @include fill;
+  z-index: -2;
+
+  @include motion {
+    animation: hero-zoom 16s var(--ease-out) both;
+  }
+}
+
+.hero__video {
+  @include fill;
+  object-fit: cover;
+}
+
+.hero__overlay {
+  @include fill;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(8, 10, 9, 0.6) 0%, rgba(8, 10, 9, 0.1) 30%, rgba(8, 10, 9, 0.2) 55%, rgba(8, 10, 9, 0.9) 100%),
+    linear-gradient(90deg, rgba(8, 10, 9, 0.55) 0%, rgba(8, 10, 9, 0) 70%);
+}
+
+.hero__content {
+  display: grid;
+  justify-items: start;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  padding-bottom: clamp(2rem, 6vh, 4rem);
+}
+
+.hero__eyebrow {
+  @include motion {
+    animation: fade-up 1.2s var(--ease-out) 0.2s both;
+  }
+}
+
+.hero__title {
+  font-size: var(--fs-hero);
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.05em;
+
+  > span {
+    display: inline-block;
+
+    @include motion {
+      animation: line-up 1.5s var(--ease-out) both;
+      animation-delay: calc(0.35s + var(--i, 0) * 0.14s);
+    }
+  }
+
+  &:nth-child(2) > span {
+    @include up(md) {
+      padding-left: 0.9em; // editorial indent on the second line
+    }
+  }
+}
+
+.hero__subtitle {
+  max-width: 34rem;
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(233, 227, 215, 0.86);
+
+  @include motion {
+    animation: fade-up 1.2s var(--ease-out) 0.8s both;
+  }
+}
+
+.hero__actions {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 0.5rem;
+
+  @include up(sm) {
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    gap: 1rem;
+  }
+
+  @include motion {
+    animation: fade-up 1.2s var(--ease-out) 1s both;
+  }
+}
+
+// ---- Vertical side label (desktop) ----
+.hero__side {
+  position: absolute;
+  right: calc(var(--gutter) * 0.55);
+  top: 50%;
+  display: none;
+  align-items: center;
+  gap: 1rem;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%);
+  @include micro-caps;
+  font-size: 0.62rem;
+  color: rgba(233, 227, 215, 0.65);
+
+  @include up(lg) {
+    display: flex;
+  }
+}
+
+.hero__side-rule {
+  width: 1px;
+  height: 4rem;
+  background: var(--c-gold);
+}
+
+// ---- Bottom strip ----
+.hero__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.25rem max(1.5rem, env(safe-area-inset-bottom));
+  border-top: 1px solid rgba(233, 227, 215, 0.14);
+}
+
+.hero__scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 2.75rem;
+  @include micro-caps;
+  font-size: 0.64rem;
+  color: rgba(233, 227, 215, 0.8);
+
+  &:hover {
+    color: var(--c-white);
+  }
+}
+
+.hero__scroll-track {
+  position: relative;
+  width: 1px;
+  height: 2.5rem;
+  overflow: hidden;
+  background: rgba(233, 227, 215, 0.2);
+
+  span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 45%;
+    background: var(--c-gold);
+
+    @include motion {
+      animation: scroll-line 2.2s var(--ease-in-out) infinite;
+    }
+  }
+}
+
+.hero__caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(233, 227, 215, 0.75);
+}
+
+.hero__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-gold);
+  box-shadow: 0 0 0 4px rgba(197, 164, 109, 0.2);
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.14);
+  }
+}
+
+@keyframes line-up {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+}
+
+@keyframes scroll-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(230%);
+  }
+}
