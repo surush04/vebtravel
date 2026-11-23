@@ -23,13 +23,28 @@ export class Store {
     await fs.mkdir(path.join(this.dir, 'backups'), { recursive: true });
     await fs.mkdir(path.join(this.dir, 'uploads'), { recursive: true });
 
-    // Seed from the current website content on first start.
+    // Seed on first start. When DATA_DIR points elsewhere (e.g. a Render disk),
+    // the content committed in the repository (server/data) is copied first.
+    const repoData = path.join(this.root, 'server', 'data');
+    const fromRepo = path.resolve(repoData) !== path.resolve(this.dir);
+    const src = (name, fallback) => (fromRepo ? [path.join(repoData, `${name}.json`), fallback] : [fallback]);
+
     for (const lang of LANGS) {
-      await this.seed(`i18n-${lang}`, path.join(this.root, 'public', 'i18n', `${lang}.json`));
+      await this.seed(`i18n-${lang}`, src(`i18n-${lang}`, path.join(this.root, 'public', 'i18n', `${lang}.json`)));
     }
-    await this.seed('site', path.join(this.root, 'server', 'seed', 'site.json'));
-    await this.seed('media', path.join(this.root, 'public', 'images', 'manifest.json'), { images: {} });
+    await this.seed('site', src('site', path.join(this.root, 'server', 'seed', 'site.json')));
+    await this.seed('media', src('media', path.join(this.root, 'public', 'images', 'manifest.json')), { images: {} });
     if (!(await this.exists('messages'))) await this.write('messages', []);
+    if (fromRepo) await this.seedUploads(path.join(repoData, 'uploads'));
+  }
+
+  /** Copy committed photos into an empty uploads directory. */
+  async seedUploads(source) {
+    const target = path.join(this.dir, 'uploads');
+    if ((await fs.readdir(target)).length) return;
+    const files = await fs.readdir(source).catch(() => []);
+    for (const f of files) await fs.copyFile(path.join(source, f), path.join(target, f));
+    if (files.length) console.log(`  seeded ${files.length} photo files`);
   }
 
   async exists(name) {
@@ -41,14 +56,20 @@ export class Store {
     }
   }
 
-  async seed(name, source, fallback) {
+  async seed(name, sources, fallback) {
     if (await this.exists(name)) return;
     let data = fallback;
-    try {
-      data = JSON.parse(await fs.readFile(source, 'utf8'));
-    } catch {
-      if (fallback === undefined) throw new Error(`Seed file missing: ${source}`);
+    let found = false;
+    for (const source of sources) {
+      try {
+        data = JSON.parse(await fs.readFile(source, 'utf8'));
+        found = true;
+        break;
+      } catch {
+        /* try next source */
+      }
     }
+    if (!found && fallback === undefined) throw new Error(`Seed file missing: ${sources.join(', ')}`);
     await this.write(name, data, { backup: false });
     console.log(`  seeded ${name}`);
   }

@@ -32,6 +32,18 @@ All site content is managed from the admin panel (Tajik interface):
 
 ---
 
+## Deploy on Render
+
+The repository includes `render.yaml` (a Render Blueprint).
+
+1. Render dashboard → **New → Blueprint**, then select this repository.
+2. When asked, enter **`ADMIN_PASSWORD`**. It is stored only in Render, not in git.
+3. Deploy. The build runs `npm ci --include=dev && npm run build`, the start command is `npm run server`, and the health check is `/healthz`.
+
+- **Persistent disk (required):** Render's filesystem is temporary, so without a disk every admin edit, photo and message is lost on each restart or deploy. The blueprint mounts a 1 GB disk at `/var/data` (`DATA_DIR`), which needs a paid instance (Starter).
+- **First start:** the disk is filled from the content committed in `server/data/` (texts, lists, photos). From then on, the admin panel is the source of truth.
+- **Domain:** after adding a custom domain in Render, set it in Admin → Settings → Domain, and update `public/sitemap.xml` and `public/robots.txt`.
+
 ## Before going live — checklist
 
 All unconfirmed information is deliberately left empty. Nothing was invented.

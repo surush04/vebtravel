@@ -28,7 +28,8 @@ await auth.init();
 
 const app = express();
 app.disable('x-powered-by');
-app.set('trust proxy', 'loopback');
+// Behind one reverse proxy (Render, Nginx) — needed for correct client IPs in rate limiting.
+app.set('trust proxy', Number(process.env.TRUST_PROXY ?? 1));
 app.use(express.json({ limit: '40mb' }));
 app.use((req, res, next) => {
   res.set('X-Content-Type-Options', 'nosniff');
@@ -53,6 +54,8 @@ const str = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 const wrap = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 // ---- Public ------------------------------------------------------------------
+app.get('/healthz', (req, res) => res.json({ ok: true }));
+
 app.get('/api/content', wrap(async (req, res) => {
   res.set('Cache-Control', 'no-cache');
   res.json(await store.content());

@@ -1,0 +1,24 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Dashboard → New → Blueprint → select this repository.
+services:
+  - type: web
+    name: m-sayyod
+    runtime: node
+    # A persistent disk (required so admin edits, photos and messages survive
+    # restarts and deploys) is available on paid plans only.
+    plan: starter
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm run server
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: DATA_DIR
+        value: /var/data
+      # Set the admin password in the dashboard (not stored in git).
+      - key: ADMIN_PASSWORD
+        sync: false
+    disk:
+      name: m-sayyod-data
+      mountPath: /var/data
+      sizeGB: 1
