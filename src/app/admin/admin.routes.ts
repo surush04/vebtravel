@@ -8,6 +8,7 @@ import { AdminStore } from './admin-store.service';
 const authGuard: CanActivateFn = async () => {
   const api = inject(AdminApi);
   const router = inject(Router);
+  if (!(await api.loadMode())) return true; // login temporarily disabled on the server
   if (!api.token()) return router.parseUrl('/admin/login');
   try {
     await api.session();
@@ -23,7 +24,17 @@ const unsavedGuard: CanDeactivateFn<unknown> = () => {
 };
 
 export const ADMIN_ROUTES: Routes = [
-  { path: 'login', loadComponent: () => import('./pages/login.page').then((m) => m.LoginPage) },
+  {
+    path: 'login',
+    canActivate: [
+      async () => {
+        const api = inject(AdminApi);
+        const router = inject(Router);
+        return (await api.loadMode()) ? true : router.parseUrl('/admin');
+      },
+    ],
+    loadComponent: () => import('./pages/login.page').then((m) => m.LoginPage),
+  },
   {
     path: '',
     component: AdminShellComponent,

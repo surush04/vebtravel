@@ -32,6 +32,18 @@ export class AdminApi {
   private readonly router = inject(Router);
 
   readonly token = signal<string | null>(readToken());
+  /** False while the server runs with login disabled (ADMIN_AUTH not "on"). */
+  readonly authRequired = signal(true);
+
+  async loadMode(): Promise<boolean> {
+    try {
+      const res = await firstValueFrom(this.http.get<{ required: boolean }>('api/auth/mode'));
+      this.authRequired.set(res.required !== false);
+    } catch {
+      this.authRequired.set(true);
+    }
+    return this.authRequired();
+  }
 
   async login(password: string): Promise<void> {
     const res = await firstValueFrom(this.http.post<{ token: string }>('api/auth/login', { password }));

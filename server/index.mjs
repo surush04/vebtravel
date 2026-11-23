@@ -84,6 +84,12 @@ app.post('/api/messages', limiter(8, 10 * 60 * 1000), wrap(async (req, res) => {
   res.status(201).json({ ok: true });
 }));
 
+/** Whether the admin requires a password. TEMPORARY default: off — set ADMIN_AUTH=on to require login. */
+const AUTH_REQUIRED = process.env.ADMIN_AUTH === 'on';
+if (!AUTH_REQUIRED) console.warn('  ! Admin login is DISABLED — anyone can edit the site. Set ADMIN_AUTH=on to enable it.');
+
+app.get('/api/auth/mode', (req, res) => res.json({ required: AUTH_REQUIRED }));
+
 app.post('/api/auth/login', limiter(10, 15 * 60 * 1000), (req, res) => {
   if (!auth.verify(req.body?.password)) return res.status(401).json({ error: 'invalid password' });
   res.json({ token: auth.issue() });
@@ -91,7 +97,8 @@ app.post('/api/auth/login', limiter(10, 15 * 60 * 1000), (req, res) => {
 
 // ---- Admin (token required) ---------------------------------------------------
 const admin = express.Router();
-admin.use(auth.middleware());
+const requireAuth = auth.middleware();
+admin.use((req, res, next) => (AUTH_REQUIRED ? requireAuth(req, res, next) : next()));
 
 admin.get('/session', (req, res) => res.json({ ok: true }));
 

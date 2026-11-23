@@ -36,7 +36,9 @@ import { AdminStore } from './admin-store.service';
       </nav>
       <div class="adm-side__foot">
         <a href="/" target="_blank" rel="noopener">↗ {{ L.viewSite }}</a>
-        <button type="button" (click)="logout()">⎋ {{ L.logout }}</button>
+        @if (api.authRequired()) {
+          <button type="button" (click)="logout()">⎋ {{ L.logout }}</button>
+        }
       </div>
     </aside>
 
@@ -57,6 +59,12 @@ import { AdminStore } from './admin-store.service';
         </div>
       </header>
       <main class="adm-content">
+        @if (!api.authRequired()) {
+          <p class="adm-warning" role="alert">
+            ⚠ Воридшавӣ бо парол муваққатан хомӯш аст — ҳар кас метавонад сомонаро тағйир диҳад.
+            Барои фаъол кардан дар Render тағйирёбандаи <code>ADMIN_AUTH=on</code>-ро илова кунед.
+          </p>
+        }
         @if (store.loaded()) {
           <router-outlet />
         } @else {
@@ -69,7 +77,7 @@ import { AdminStore } from './admin-store.service';
 })
 export class AdminShellComponent {
   protected readonly store = inject(AdminStore);
-  private readonly api = inject(AdminApi);
+  protected readonly api = inject(AdminApi);
   protected readonly L = L;
   protected readonly menuOpen = signal(false);
   protected readonly error = signal('');
