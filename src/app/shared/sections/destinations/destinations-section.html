@@ -31,7 +31,8 @@
       <!-- Destination list (accordion) -->
       <ol class="dest__list">
         @for (d of destinations(); track d.id; let i = $index) {
-          <li class="dest__item" [class.is-active]="active() === i" appReveal [revealDelay]="i * 90">
+          <li class="dest__item" [class.is-active]="active() === i" appReveal [revealDelay]="i * 90"
+            [appEditItem]="{ type: 'collection', name: 'destinations', id: d.id }">
             <h3>
               <button
                 type="button"
@@ -57,6 +58,7 @@
         }
       </ol>
     </div>
+    <app-edit-add [action]="{ type: 'collection', name: 'destinations' }" label="Макони нав" />
 
     @if (showMap()) {
       <div class="dest__map">

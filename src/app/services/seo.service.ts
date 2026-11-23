@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { SITE_CONFIG } from '../core/config/site.config';
 import { ContentService } from './content.service';
-import { TranslationService } from './translation.service';
+import { TranslationService, stripMarkers } from './translation.service';
 
 /**
  * Keeps <title>, meta description, canonical and Open Graph / Twitter tags
@@ -45,8 +45,8 @@ export class SeoService {
     }
     this.meta.updateTag({ name: 'robots', content: 'index, follow' });
     const siteUrl = this.content.settings().siteUrl.replace(/\/$/, '');
-    const title = this.i18n.t(`seo.${key}.title`);
-    const description = this.i18n.t(`seo.${key}.description`);
+    const title = stripMarkers(this.i18n.t(`seo.${key}.title`));
+    const description = stripMarkers(this.i18n.t(`seo.${key}.description`));
     const url = `${siteUrl}${path === '/' ? '/' : path}`;
     const image = `${siteUrl}${SITE_CONFIG.ogImage}`;
     const locale = this.i18n.current().ogLocale;

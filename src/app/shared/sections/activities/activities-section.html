@@ -18,11 +18,14 @@
           [class.is-active]="active() === i"
           (mouseenter)="active.set(i)"
           (focusin)="active.set(i)"
+          [appEditItem]="{ type: 'collection', name: 'activities', id: activity.id }"
         >
           <app-activity-card mode="panel" [activity]="activity" [index]="pad(i + 1)" [active]="active() === i" />
         </li>
       }
     </ul>
+
+    <app-edit-add [action]="{ type: 'collection', name: 'activities' }" label="Фаъолияти нав" />
 
     <!-- Touch carousel indicator -->
     <div class="activities__progress" aria-hidden="true">

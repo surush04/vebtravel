@@ -9,6 +9,39 @@ const DEFAULT_LANGUAGE: LanguageCode = 'en';
 
 type Params = Record<string, string | number>;
 
+// ---- Invisible key markers (visual editor) -----------------------------------
+// In edit mode every translated string is prefixed with its key, encoded in
+// zero-width characters, so the editor can find which text is which on the page.
+const MARK_START = '⁢';
+const MARK_END = '⁤';
+const DIGITS = ['​', '‌', '‍', '⁠'];
+export const MARKER_PATTERN = /⁢([​‌‍⁠]+)⁤/g;
+/** Shown in edit mode where a text is empty, so it can still be clicked. */
+export const EMPTY_PLACEHOLDER = '✎ …';
+
+function encodeKey(key: string): string {
+  let out = MARK_START;
+  for (const ch of key) {
+    const code = ch.charCodeAt(0) & 255;
+    for (let shift = 6; shift >= 0; shift -= 2) out += DIGITS[(code >> shift) & 3];
+  }
+  return out + MARK_END;
+}
+
+export function decodeKey(encoded: string): string {
+  let key = '';
+  for (let i = 0; i + 3 < encoded.length; i += 4) {
+    let code = 0;
+    for (let j = 0; j < 4; j++) code = (code << 2) | DIGITS.indexOf(encoded[i + j]);
+    key += String.fromCharCode(code);
+  }
+  return key;
+}
+
+export function stripMarkers(text: string): string {
+  return text.replace(MARKER_PATTERN, '');
+}
+
 /**
  * Lightweight, signal-based i18n. Dictionaries live in /public/i18n/<code>.json
  * and are fetched on demand, then cached for instant switching.
@@ -21,6 +54,8 @@ export class TranslationService {
   private readonly dictionary = signal<Dictionary>({});
 
   readonly languages = LANGUAGES;
+  /** Visual editor: annotate texts with their keys. */
+  readonly editMode = signal(false);
   readonly language = signal<LanguageCode>(DEFAULT_LANGUAGE);
   readonly current = computed<LanguageOption>(
     () => LANGUAGES.find((l) => l.code === this.language()) ?? LANGUAGES[2],
@@ -66,6 +101,10 @@ export class TranslationService {
   /** Translate a dotted key, e.g. `t('hero.title')`. Supports {{param}} interpolation. */
   t(key: string, params?: Params): string {
     const value = this.resolve(key);
+    if (this.editMode()) {
+      const text = typeof value === 'string' ? (params ? this.interpolate(value, params) : value) : '';
+      return encodeKey(key) + (text.trim() ? text : EMPTY_PLACEHOLDER);
+    }
     if (typeof value !== 'string') {
       if (isDevMode() && Object.keys(this.dictionary()).length) {
         console.warn(`[i18n] Missing key "${key}" (${this.language()})`);
@@ -78,7 +117,9 @@ export class TranslationService {
   /** Like `t()`, but returns '' (silently) when the key is absent — for optional fields. */
   optional(key: string): string {
     const value = this.resolve(key);
-    return typeof value === 'string' ? value : '';
+    const text = typeof value === 'string' ? value : '';
+    if (this.editMode()) return encodeKey(key) + (text.trim() ? text : EMPTY_PLACEHOLDER);
+    return text;
   }
 
   /** All loaded dictionaries (used by the admin panel). */
@@ -89,7 +130,18 @@ export class TranslationService {
   /** Return a list of strings or objects stored under a key. */
   list<T = string>(key: string): T[] {
     const value = this.resolve(key);
-    return Array.isArray(value) ? (value as T[]) : [];
+    if (!Array.isArray(value)) return [];
+    return this.editMode() ? (this.markDeep(value, key) as T[]) : (value as T[]);
+  }
+
+  /** Edit mode: mark every string inside a list with its full path. */
+  private markDeep(node: unknown, path: string): unknown {
+    if (typeof node === 'string') return encodeKey(path) + (node.trim() ? node : EMPTY_PLACEHOLDER);
+    if (Array.isArray(node)) return node.map((item, i) => this.markDeep(item, `${path}.${i}`));
+    if (node && typeof node === 'object') {
+      return Object.fromEntries(Object.entries(node).map(([k, v]) => [k, this.markDeep(v, `${path}.${k}`)]));
+    }
+    return node;
   }
 
   private resolve(key: string): unknown {

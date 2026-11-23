@@ -5,6 +5,8 @@ import { ButtonComponent } from '../../components/button/button';
 import { MediaComponent } from '../../components/media/media';
 import { TimelineComponent, TimelineEntry } from '../../components/timeline/timeline';
 import { RevealDirective } from '../../directives/reveal.directive';
+import { EditItemDirective } from '../../directives/edit-item.directive';
+import { EditAddComponent } from '../../components/edit-add/edit-add';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 
 interface Value {
@@ -14,7 +16,7 @@ interface Value {
 
 @Component({
   selector: 'app-about-section',
-  imports: [RouterLink, TranslatePipe, ButtonComponent, MediaComponent, TimelineComponent, RevealDirective],
+  imports: [RouterLink, TranslatePipe, ButtonComponent, MediaComponent, TimelineComponent, RevealDirective, EditItemDirective, EditAddComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './about-section.html',
   styleUrl: './about-section.scss',

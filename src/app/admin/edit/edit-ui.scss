@@ -1,0 +1,347 @@
+// Visual editor — global while edit mode is on (ViewEncapsulation.None)
+@use 'mixins' as *;
+
+body.is-editing {
+  padding-bottom: 76px;
+
+  @include down(md) {
+    padding-bottom: 150px;
+  }
+
+  app-whatsapp-fab {
+    display: none;
+  }
+
+  // ---- Clickable texts ----
+  [data-edit-keys] {
+    cursor: text;
+    transition: outline-color 0.15s, background-color 0.15s;
+  }
+
+  [data-edit-keys]:hover {
+    outline: 2px dashed #c5a46d;
+    outline-offset: 3px;
+    background-color: rgba(197, 164, 109, 0.12);
+  }
+
+  // Let clicks reach photo buttons behind decorative layers
+  .hero__overlay,
+  .page-hero__overlay,
+  .cons__shade,
+  .card__shade,
+  .tile__overlay,
+  .cta__media::after,
+  .nf__media::after,
+  .dest__image:not(.is-active) {
+    pointer-events: none;
+  }
+
+  .hero__content,
+  .page-hero__content,
+  .cons__intro,
+  .cta__inner {
+    pointer-events: none;
+
+    > * {
+      pointer-events: auto;
+    }
+  }
+
+  // Full-bleed backgrounds: photo button top-right, below the fixed header
+  // (the bottom of the screen is taken by the editor bar)
+  .hero__media,
+  .page-hero__media,
+  .nf__media,
+  .cons__bg,
+  .cta__media {
+    .media__edit {
+      left: auto;
+      right: 1.5rem;
+      top: calc(var(--header-h) + 3rem);
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+    }
+  }
+
+  .cons__bg .media__edit {
+    top: 18%;
+  }
+
+  .cta__media .media__edit {
+    top: 2rem;
+  }
+
+  // Keep the photo button clear of the list toolbar (top-right)
+  .edit-item > * .media__edit,
+  .edit-item .media__edit {
+    top: 3.2rem;
+  }
+}
+
+// ---- List item toolbar (from EditItemDirective) ----
+.edit-item {
+  outline: 1px dashed rgba(197, 164, 109, 0.55);
+  outline-offset: 2px;
+}
+
+.edit-toolbar {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  z-index: 45;
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 8px;
+  background: rgba(21, 26, 23, 0.92);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+
+  button {
+    display: grid;
+    place-items: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    font: 600 0.9rem/1 var(--font-body);
+    color: #e9e3d7;
+    background: rgba(233, 227, 215, 0.08);
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+
+    &:hover {
+      background: #c5a46d;
+      color: #151a17;
+    }
+
+    &.is-danger:hover {
+      background: #c4553e;
+      color: #fff;
+    }
+  }
+}
+
+// ---- "+ Add" buttons ----
+.edit-add {
+  display: block;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+  font: 600 0.85rem/1.2 var(--font-body);
+  letter-spacing: 0.04em;
+  color: #c5a46d;
+  background: rgba(197, 164, 109, 0.08);
+  border: 2px dashed rgba(197, 164, 109, 0.7);
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(197, 164, 109, 0.18);
+  }
+}
+
+app-edit-add {
+  display: block;
+}
+
+// ---- Hint ----
+.edit-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 88px;
+  z-index: 1002;
+  width: min(92vw, 720px);
+  padding: 0.9rem 2.8rem 0.9rem 1.1rem;
+  font: 0.86rem/1.5 var(--font-body);
+  color: #151a17;
+  background: #fbf1d3;
+  border: 1px solid #e3c46f;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%);
+
+  @include down(md) {
+    bottom: 160px;
+  }
+
+  button {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.75rem;
+    font-size: 1rem;
+  }
+}
+
+// ---- Bottom bar ----
+.edit-bar.adm {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  min-height: 0;
+  padding: 0.65rem clamp(0.75rem, 2vw, 1.5rem) max(0.65rem, env(safe-area-inset-bottom));
+  color: #e9e3d7;
+  background: rgba(15, 33, 26, 0.97);
+  border-top: 1px solid rgba(197, 164, 109, 0.4);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+
+  .adm-btn {
+    color: #e9e3d7;
+    background: transparent;
+    border-color: rgba(233, 227, 215, 0.2);
+
+    &:hover,
+    &.is-on {
+      border-color: #c5a46d;
+      color: #fff;
+      background: rgba(197, 164, 109, 0.15);
+    }
+  }
+
+  .adm-btn--save {
+    color: #151a17;
+    background: #c5a46d;
+    border-color: #c5a46d;
+
+    &:hover {
+      background: #e9e3d7;
+      color: #151a17;
+    }
+  }
+
+  .adm-error {
+    color: #f0a28f;
+  }
+}
+
+.edit-bar__group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+
+  &--end {
+    margin-left: auto;
+  }
+}
+
+.edit-bar__brand {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: #c5a46d;
+}
+
+.edit-bar.adm .edit-bar__pages {
+  width: auto;
+  max-width: 14rem;
+  padding: 0.35rem 0.5rem;
+  font: 0.85rem var(--font-body);
+  color: #e9e3d7;
+  background: rgba(233, 227, 215, 0.08);
+  border: 1px solid rgba(233, 227, 215, 0.2);
+  border-radius: 6px;
+
+  option {
+    color: #151a17;
+  }
+}
+
+.edit-bar__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.edit-bar__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: rgba(233, 227, 215, 0.75);
+
+  &.is-dirty {
+    color: #c5a46d;
+    font-weight: 600;
+
+    .adm-dot {
+      background: #c5a46d;
+    }
+  }
+}
+
+// ---- Side panel ----
+.edit-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  background: rgba(10, 13, 11, 0.35);
+}
+
+.edit-panel.adm {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+  width: min(100vw, 560px);
+  min-height: 0;
+  background: var(--a-bg);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.35);
+  animation: edit-panel-in 0.35s var(--ease-out) both;
+
+  &.is-wide {
+    width: min(100vw, 1100px);
+  }
+}
+
+.edit-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: #fff;
+  border-bottom: 1px solid var(--a-line);
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+}
+
+.edit-panel__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+
+  .adm-langs {
+    grid-template-columns: 1fr;
+  }
+
+  .adm-image {
+    margin-bottom: 1rem;
+  }
+}
+
+.edit-panel.is-wide .edit-panel__body .adm-langs {
+  @include up(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@keyframes edit-panel-in {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+}

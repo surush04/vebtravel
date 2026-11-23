@@ -54,3 +54,26 @@ picture,
   border: 1px solid rgba(197, 164, 109, 0.35);
   pointer-events: none;
 }
+
+// ---- Visual editor -----------------------------------------------------------
+.media__edit {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.7rem;
+  font: 600 0.75rem/1 var(--font-body);
+  color: #151a17;
+  background: #c5a46d;
+  border: 0;
+  border-radius: 99px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+
+  &:hover {
+    background: #e9e3d7;
+  }
+}

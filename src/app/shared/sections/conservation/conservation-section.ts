@@ -4,6 +4,8 @@ import { TranslationService } from '../../../services/translation.service';
 import { ButtonComponent } from '../../components/button/button';
 import { MediaComponent } from '../../components/media/media';
 import { RevealDirective } from '../../directives/reveal.directive';
+import { EditItemDirective } from '../../directives/edit-item.directive';
+import { EditAddComponent } from '../../components/edit-add/edit-add';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 
 interface Item {
@@ -13,7 +15,7 @@ interface Item {
 
 @Component({
   selector: 'app-conservation-section',
-  imports: [RouterLink, TranslatePipe, ButtonComponent, MediaComponent, RevealDirective],
+  imports: [RouterLink, TranslatePipe, ButtonComponent, MediaComponent, RevealDirective, EditItemDirective, EditAddComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './conservation-section.html',
   styleUrl: './conservation-section.scss',

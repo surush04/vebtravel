@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { ContentService } from '../../../services/content.service';
 import { TranslationService } from '../../../services/translation.service';
 import { RevealDirective } from '../../directives/reveal.directive';
+import { EditItemDirective } from '../../directives/edit-item.directive';
+import { EditAddComponent } from '../../components/edit-add/edit-add';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 
 interface Reason {
@@ -11,7 +13,7 @@ interface Reason {
 
 @Component({
   selector: 'app-why-section',
-  imports: [TranslatePipe, RevealDirective],
+  imports: [TranslatePipe, RevealDirective, EditItemDirective, EditAddComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="section theme-dark why" aria-labelledby="why-title">
@@ -33,7 +35,7 @@ interface Reason {
 
         <ol class="why__list">
           @for (r of reasons(); track $index) {
-            <li class="why__item" appReveal [revealDelay]="$index * 90">
+            <li class="why__item" appReveal [revealDelay]="$index * 90" [appEditItem]="{ type: 'list', path: 'why.items', index: $index }">
               <span class="why__num">0{{ $index + 1 }}</span>
               <div>
                 <h3 class="h3">{{ r.title }}</h3>
@@ -42,6 +44,7 @@ interface Reason {
             </li>
           }
         </ol>
+        <app-edit-add class="why__add" [action]="{ type: 'list', path: 'why.items', shape: ['title', 'text'] }" label="Сабаби нав" />
       </div>
     </section>
   `,

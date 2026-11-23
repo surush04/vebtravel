@@ -1,0 +1,80 @@
+<!-- Hint -->
+@if (hintVisible() && !edit.preview()) {
+  <div class="edit-hint" role="status">
+    <strong>Режими таҳрир.</strong> Ба ҳар матн пахш кунед, то онро таҳрир кунед. 📷 аксро иваз мекунад,
+    ↑ ↓ ✕ ва «+» рӯйхатҳоро идора мекунанд. Барои ҳаракат дар сомона «Пешнамоиш»-ро фаъол кунед ё саҳифаро аз рӯйхат интихоб кунед.
+    <button type="button" (click)="hintVisible.set(false)" aria-label="Пӯшидан">✕</button>
+  </div>
+}
+
+<!-- Side panel: text / photo / tools -->
+@if (edit.editingKeys() || edit.editingPhoto() || tool()) {
+  <div class="edit-scrim" (click)="closePanels()"></div>
+  <aside class="edit-panel adm adm--drawer" [class.is-wide]="tool() === 'texts' || tool() === 'gallery' || tool() === 'messages'" role="dialog" aria-modal="true">
+    <header class="edit-panel__head">
+      <h2>
+        @if (edit.editingKeys()) { Таҳрири матн }
+        @else if (edit.editingPhoto()) { Акс }
+        @else if (tool() === 'settings') { {{ L.nav.settings }} }
+        @else if (tool() === 'messages') { {{ L.nav.messages }} }
+        @else if (tool() === 'texts') { Ҳамаи матнҳо (SEO ва ғ.) }
+        @else if (tool() === 'gallery') { Галерея ва категорияҳо }
+      </h2>
+      <button type="button" class="adm-btn adm-btn--sm" (click)="closePanels()">Тайёр ✓</button>
+    </header>
+
+    <div class="edit-panel__body">
+      @if (edit.editingKeys(); as keys) {
+        <p class="adm-hint">Тағйирот фавран дар саҳифа намоён мешавад. Барои сабти доимӣ «Захира кардан»-ро пахш кунед.</p>
+        @for (key of keys; track key) {
+          <adm-lang-field [path]="key" [label]="labelFor(key)" [hint]="key" />
+        }
+      } @else if (edit.editingPhoto(); as photo) {
+        <adm-image-field [key]="photo" ratio="16 / 10" />
+        <adm-lang-field [path]="'media.' + photo" [label]="L.image.alt" [multiline]="false" />
+      } @else {
+        @switch (tool()) {
+          @case ('settings') { <adm-settings /> }
+          @case ('messages') { <adm-messages /> }
+          @case ('texts') { <adm-texts /> }
+          @case ('gallery') { <adm-gallery /> }
+        }
+      }
+    </div>
+  </aside>
+}
+
+<!-- Bottom editor bar -->
+<div class="edit-bar adm">
+  <div class="edit-bar__group">
+    <span class="edit-bar__brand">✎ Таҳрир</span>
+    <select class="edit-bar__pages" [value]="currentPath()" (change)="go($any($event.target).value)" aria-label="Саҳифа">
+      @for (p of pages(); track p.path) {
+        <option [value]="p.path" [selected]="p.path === currentPath()">{{ p.label }}</option>
+      }
+    </select>
+    <label class="edit-bar__toggle">
+      <input type="checkbox" [checked]="edit.preview()" (change)="edit.preview.set($any($event.target).checked); closePanels()" />
+      Пешнамоиш
+    </label>
+  </div>
+
+  <div class="edit-bar__group">
+    <button type="button" class="adm-btn adm-btn--sm adm-btn--ghost" [class.is-on]="tool() === 'gallery'" (click)="openTool('gallery')">▦ Галерея</button>
+    <button type="button" class="adm-btn adm-btn--sm adm-btn--ghost" [class.is-on]="tool() === 'texts'" (click)="openTool('texts')">¶ Матнҳо</button>
+    <button type="button" class="adm-btn adm-btn--sm adm-btn--ghost" [class.is-on]="tool() === 'messages'" (click)="openTool('messages')">✉ Паёмҳо</button>
+    <button type="button" class="adm-btn adm-btn--sm adm-btn--ghost" [class.is-on]="tool() === 'settings'" (click)="openTool('settings')">⚙ Танзимот</button>
+  </div>
+
+  <div class="edit-bar__group edit-bar__group--end">
+    <span class="edit-bar__status" [class.is-dirty]="store.dirty()"><span class="adm-dot"></span>{{ status() }}</span>
+    @if (saveError()) { <span class="adm-error">{{ saveError() }}</span> }
+    @if (store.dirty()) {
+      <button type="button" class="adm-btn adm-btn--sm adm-btn--ghost" (click)="discard()" [disabled]="store.saving()">{{ L.discard }}</button>
+    }
+    <button type="button" class="adm-btn adm-btn--sm adm-btn--save" (click)="save()" [disabled]="!store.dirty() || store.saving()">
+      {{ store.saving() ? L.saving : L.save }}
+    </button>
+    <button type="button" class="adm-btn adm-btn--sm adm-btn--ghost" (click)="exit()" title="Баромадан аз режими таҳрир">⎋ Баромадан</button>
+  </div>
+</div>

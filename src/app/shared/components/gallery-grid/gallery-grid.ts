@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { GalleryItem } from '../../../models';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { EditItemDirective } from '../../directives/edit-item.directive';
 import { IconComponent } from '../icon/icon';
 import { MediaComponent } from '../media/media';
 
@@ -9,12 +10,12 @@ const RATIOS = { portrait: '4 / 5', landscape: '3 / 2', square: '1 / 1' } as con
 /** Responsive masonry grid (CSS columns) — 1 → 2 → 3 → 4 columns. */
 @Component({
   selector: 'app-gallery-grid',
-  imports: [MediaComponent, TranslatePipe, IconComponent],
+  imports: [MediaComponent, TranslatePipe, IconComponent, EditItemDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="grid" [attr.aria-label]="'a11y.gallery' | t">
       @for (item of items(); track item.id; let i = $index) {
-        <li class="grid__item" [style.--i]="i % 8">
+        <li class="grid__item" [style.--i]="i % 8" [appEditItem]="{ type: 'gallery', id: item.id }">
           <button type="button" class="tile hover-zoom" (click)="open.emit(i)">
             <app-media
               [key]="item.media"

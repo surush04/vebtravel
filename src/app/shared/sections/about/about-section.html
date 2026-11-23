@@ -37,7 +37,7 @@
 
     <!-- Timeline from 2005 -->
     <div class="about__timeline">
-      <app-timeline [heading]="'about.timelineTitle' | t" [entries]="timeline()" />
+      <app-timeline [heading]="'about.timelineTitle' | t" [entries]="timeline()" editPath="about.timeline" />
     </div>
 
     @if (variant() === 'full') {
@@ -45,13 +45,14 @@
         <h3 class="micro values__heading" appReveal="fade">{{ 'about.valuesTitle' | t }}</h3>
         <ul class="values__list">
           @for (v of values(); track $index) {
-            <li class="values__item" appReveal [revealDelay]="$index * 120">
+            <li class="values__item" appReveal [revealDelay]="$index * 120" [appEditItem]="{ type: 'list', path: 'about.values', index: $index }">
               <span class="index-num">0{{ $index + 1 }}</span>
               <h4 class="h3">{{ v.title }}</h4>
               <p>{{ v.text }}</p>
             </li>
           }
         </ul>
+        <app-edit-add [action]="{ type: 'list', path: 'about.values', shape: ['title', 'text'] }" label="Арзиши нав" />
       </div>
     }
   </div>

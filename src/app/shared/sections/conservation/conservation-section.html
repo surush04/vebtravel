@@ -37,13 +37,14 @@
     <!-- Three pillars -->
     <ol class="pillars">
       @for (p of pillars(); track $index) {
-        <li class="pillars__item" appReveal [revealDelay]="$index * 120">
+        <li class="pillars__item" appReveal [revealDelay]="$index * 120" [appEditItem]="{ type: 'list', path: 'conservation.pillars', index: $index }">
           <span class="pillars__num">0{{ $index + 1 }}</span>
           <h3 class="h3">{{ p.title }}</h3>
           <p>{{ p.text }}</p>
         </li>
       }
     </ol>
+    <app-edit-add [action]="{ type: 'list', path: 'conservation.pillars', shape: ['title', 'text'] }" label="Сутуни нав" />
 
     <figure class="cons__quote" appReveal>
       <blockquote class="serif-quote">“{{ 'conservation.quote' | t }}”</blockquote>
@@ -55,12 +56,13 @@
         <h3 class="eyebrow principles__heading" appReveal="fade">{{ 'conservation.principlesTitle' | t }}</h3>
         <ul class="principles__list">
           @for (p of principles(); track $index) {
-            <li class="principles__item" appReveal [revealDelay]="$index * 100">
+            <li class="principles__item" appReveal [revealDelay]="$index * 100" [appEditItem]="{ type: 'list', path: 'conservation.principles', index: $index }">
               <h4 class="h4">{{ p.title }}</h4>
               <p>{{ p.text }}</p>
             </li>
           }
         </ul>
+        <app-edit-add [action]="{ type: 'list', path: 'conservation.principles', shape: ['title', 'text'] }" label="Принсипи нав" />
       </div>
     } @else {
       <div class="cons__cta" appReveal>

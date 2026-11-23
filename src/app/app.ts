@@ -5,13 +5,15 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { FooterComponent } from './layout/footer/footer';
 import { HeaderComponent } from './layout/header/header';
+import { EditUiComponent } from './admin/edit/edit-ui';
+import { EditService } from './services/edit.service';
 import { SeoService } from './services/seo.service';
 import { WhatsappFabComponent } from './shared/components/whatsapp-fab/whatsapp-fab';
 import { TranslatePipe } from './shared/pipes/translate.pipe';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, WhatsappFabComponent, TranslatePipe],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, WhatsappFabComponent, TranslatePipe, EditUiComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (isAdmin()) {
@@ -24,11 +26,18 @@ import { TranslatePipe } from './shared/pipes/translate.pipe';
       </main>
       <app-footer />
       <app-whatsapp-fab />
+      @if (edit.active()) {
+        @defer {
+          <app-edit-ui />
+        }
+      }
     }
   `,
 })
 export class App {
   private readonly router = inject(Router);
+  /** Visual editor (the website itself becomes the admin panel). */
+  protected readonly edit = inject(EditService);
 
   /** The admin panel has its own layout (no public header/footer). */
   protected readonly isAdmin = toSignal(

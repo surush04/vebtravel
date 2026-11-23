@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RevealDirective } from '../../directives/reveal.directive';
+import { EditItemDirective } from '../../directives/edit-item.directive';
+import { EditAddComponent } from '../edit-add/edit-add';
 
 export interface TimelineEntry {
   year: string;
@@ -9,7 +11,7 @@ export interface TimelineEntry {
 
 @Component({
   selector: 'app-timeline',
-  imports: [RevealDirective],
+  imports: [RevealDirective, EditItemDirective, EditAddComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (heading()) {
@@ -17,7 +19,8 @@ export interface TimelineEntry {
     }
     <ol class="timeline">
       @for (entry of entries(); track $index) {
-        <li class="timeline__item" appReveal [revealDelay]="$index * 140">
+        <li class="timeline__item" appReveal [revealDelay]="$index * 140"
+          [appEditItem]="editPath() ? { type: 'list', path: editPath()!, index: $index } : null">
           <span class="timeline__dot" aria-hidden="true"></span>
           <p class="timeline__year">{{ entry.year }}</p>
           <h4 class="h4 timeline__title">{{ entry.title }}</h4>
@@ -25,6 +28,9 @@ export interface TimelineEntry {
         </li>
       }
     </ol>
+    @if (editPath()) {
+      <app-edit-add [action]="{ type: 'list', path: editPath()!, shape: ['year', 'title', 'text'] }" label="Илова ба хати замон" />
+    }
   `,
   styles: `
     @use 'mixins' as *;
@@ -49,4 +55,6 @@ export interface TimelineEntry {
 export class TimelineComponent {
   readonly heading = input('');
   readonly entries = input.required<TimelineEntry[]>();
+  /** i18n path of the list (enables editing controls in the visual editor). */
+  readonly editPath = input<string | null>(null);
 }

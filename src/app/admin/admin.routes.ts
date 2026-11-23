@@ -4,6 +4,7 @@ import { L } from './admin.labels';
 import { AdminApi } from './admin-api.service';
 import { AdminShellComponent } from './admin-shell';
 import { AdminStore } from './admin-store.service';
+import { EditService } from '../services/edit.service';
 
 const authGuard: CanActivateFn = async () => {
   const api = inject(AdminApi);
@@ -16,6 +17,14 @@ const authGuard: CanActivateFn = async () => {
   } catch {
     return router.parseUrl('/admin/login');
   }
+};
+
+/** /admin → the website itself in edit mode. */
+const enterEditMode: CanActivateFn = async () => {
+  const edit = inject(EditService);
+  const router = inject(Router);
+  await edit.start();
+  return router.parseUrl('/');
 };
 
 const unsavedGuard: CanDeactivateFn<unknown> = () => {
@@ -35,13 +44,14 @@ export const ADMIN_ROUTES: Routes = [
     ],
     loadComponent: () => import('./pages/login.page').then((m) => m.LoginPage),
   },
+  { path: '', pathMatch: 'full', canActivate: [authGuard, enterEditMode], children: [] },
   {
     path: '',
     component: AdminShellComponent,
     canActivate: [authGuard],
     canDeactivate: [unsavedGuard],
     children: [
-      { path: '', loadComponent: () => import('./pages/dashboard.page').then((m) => m.DashboardPage) },
+      { path: 'dashboard', loadComponent: () => import('./pages/dashboard.page').then((m) => m.DashboardPage) },
       { path: 'texts', loadComponent: () => import('./pages/texts.page').then((m) => m.TextsPage) },
       {
         path: 'activities',

@@ -21,7 +21,8 @@
     </nav>
 
     @for (a of activities(); track a.id; let i = $index; let odd = $odd) {
-      <article class="exp" [class.exp--reverse]="odd" [id]="a.id" [attr.aria-labelledby]="'exp-' + a.id">
+      <article class="exp" [class.exp--reverse]="odd" [id]="a.id" [attr.aria-labelledby]="'exp-' + a.id"
+        [appEditItem]="{ type: 'collection', name: 'activities', id: a.id }">
         <figure class="exp__media hover-zoom" appReveal="mask">
           <app-media [key]="a.media" sizes="(min-width: 1024px) 55vw, 100vw" />
           <span class="exp__num" aria-hidden="true">0{{ i + 1 }}</span>
@@ -37,9 +38,10 @@
             <h4 class="micro">{{ 'activities.pointsTitle' | t }}</h4>
             <ul>
               @for (p of points(a.id); track $index) {
-                <li>{{ p }}</li>
+                <li [appEditItem]="{ type: 'list', path: 'activities.items.' + a.id + '.points', index: $index }">{{ p }}</li>
               }
             </ul>
+            <app-edit-add [action]="{ type: 'list', path: 'activities.items.' + a.id + '.points', shape: null }" label="Банди нав" />
           </div>
 
           @if (note(a.id); as text) {
@@ -54,6 +56,7 @@
         </div>
       </article>
     }
+    <app-edit-add [action]="{ type: 'collection', name: 'activities' }" label="Фаъолияти нав" />
   </div>
 </section>
 

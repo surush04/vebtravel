@@ -85,6 +85,22 @@ export class AdminStore {
   touch(): void {
     this.dirty.set(true);
     this.rev.update((v) => v + 1);
+    if (this.livePreview) this.schedulePreview();
+  }
+
+  /** Visual editor: mirror every draft change onto the live page. */
+  livePreview = false;
+  private previewTimer: ReturnType<typeof setTimeout> | null = null;
+
+  schedulePreview(delay = 120): void {
+    if (this.previewTimer) clearTimeout(this.previewTimer);
+    this.previewTimer = setTimeout(() => this.applyPreview(), delay);
+  }
+
+  applyPreview(): void {
+    this.previewTimer = null;
+    if (!this.loaded()) return;
+    this.content.apply(structuredClone({ site: this.site, i18n: this.dicts, media: { images: this.images } }));
   }
 
   // ---- Texts ----------------------------------------------------------------
@@ -240,6 +256,7 @@ export class AdminStore {
 
   async discard(): Promise<void> {
     await this.load(true);
+    if (this.livePreview) this.applyPreview();
   }
 }
 

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, signal } f
 import { SITE_CONFIG } from '../../../core/config/site.config';
 import { MEDIA } from '../../../data/site.data';
 import { SceneTone } from '../../../models';
+import { EditService } from '../../../services/edit.service';
 import { MediaService } from '../../../services/media.service';
 import { TranslationService } from '../../../services/translation.service';
 import { sceneBackground } from './scene';
@@ -53,9 +54,14 @@ import { sceneBackground } from './scene';
         [attr.aria-label]="decorative() ? null : alt()"
         [attr.aria-hidden]="decorative() ? 'true' : null"
       ></div>
-      @if (showLabel) {
+      @if (showLabel && !edit.active()) {
         <span class="media__slot" aria-hidden="true">{{ key() }}</span>
       }
+    }
+    @if (edit.active() && !edit.preview()) {
+      <button type="button" class="media__edit" (click)="editPhoto($event)" title="Иваз кардани акс">
+        <span aria-hidden="true">📷</span> Акс
+      </button>
     }
   `,
   styleUrl: './media.scss',
@@ -69,6 +75,7 @@ export class MediaComponent {
   readonly decorative = input(false);
 
   private readonly media = inject(MediaService);
+  protected readonly edit = inject(EditService);
   private readonly i18n = inject(TranslationService);
 
   protected readonly showLabel = SITE_CONFIG.showImageSlotLabels;
@@ -91,6 +98,12 @@ export class MediaComponent {
     const scene = this.asset()?.scene ?? derivedScene(this.key());
     return sceneBackground(scene.tone, scene.seed);
   });
+
+  protected editPhoto(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.edit.editingPhoto.set(this.key());
+  }
 
   private version(): string {
     const v = this.photo()?.v;

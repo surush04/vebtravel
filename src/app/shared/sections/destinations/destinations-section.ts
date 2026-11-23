@@ -6,6 +6,8 @@ import { MapEmbedComponent } from '../../components/map-embed/map-embed';
 import { MediaComponent } from '../../components/media/media';
 import { SectionHeadingComponent } from '../../components/section-heading/section-heading';
 import { RevealDirective } from '../../directives/reveal.directive';
+import { EditItemDirective } from '../../directives/edit-item.directive';
+import { EditAddComponent } from '../../components/edit-add/edit-add';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
@@ -18,6 +20,8 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
     SectionHeadingComponent,
     RevealDirective,
     IconComponent,
+    EditItemDirective,
+    EditAddComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './destinations-section.html',

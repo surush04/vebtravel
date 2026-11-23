@@ -4,11 +4,13 @@ import { ContentService } from '../../../services/content.service';
 import { ActivityCardComponent } from '../../components/activity-card/activity-card';
 import { SectionHeadingComponent } from '../../components/section-heading/section-heading';
 import { RevealDirective } from '../../directives/reveal.directive';
+import { EditItemDirective } from '../../directives/edit-item.directive';
+import { EditAddComponent } from '../../components/edit-add/edit-add';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-activities-section',
-  imports: [RouterLink, TranslatePipe, ActivityCardComponent, SectionHeadingComponent, RevealDirective],
+  imports: [RouterLink, TranslatePipe, ActivityCardComponent, SectionHeadingComponent, RevealDirective, EditItemDirective, EditAddComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './activities-section.html',
   styleUrl: './activities-section.scss',

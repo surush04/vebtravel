@@ -1,0 +1,1 @@
+import{t as G}from"./chunk-CAEGk2S7.js";import"./chunk-COw6OeAT.js";import"./chunk-DHcFPHDq.js";import"./main-SZSRZPFI.js";export{G as TextsPage};

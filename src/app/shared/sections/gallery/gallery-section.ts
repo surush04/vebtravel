@@ -7,6 +7,7 @@ import { GalleryGridComponent } from '../../components/gallery-grid/gallery-grid
 import { LightboxComponent } from '../../components/lightbox/lightbox';
 import { SectionHeadingComponent } from '../../components/section-heading/section-heading';
 import { RevealDirective } from '../../directives/reveal.directive';
+import { EditAddComponent } from '../../components/edit-add/edit-add';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
@@ -19,6 +20,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
     LightboxComponent,
     SectionHeadingComponent,
     RevealDirective,
+    EditAddComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './gallery-section.html',

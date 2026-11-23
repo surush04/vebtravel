@@ -23,13 +23,13 @@ import { AdminStore } from './admin-store.service';
   },
   template: `
     <aside class="adm-side" [class.is-open]="menuOpen()">
-      <a class="adm-side__brand" routerLink="/admin">
+      <a class="adm-side__brand" routerLink="/admin/dashboard">
         <span class="adm-side__logo">M-SAYYOD</span>
         <span class="adm-side__sub">{{ L.brand }}</span>
       </a>
       <nav class="adm-side__nav">
         @for (item of nav; track item.path) {
-          <a [routerLink]="item.path" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: item.path === '/admin' }" (click)="menuOpen.set(false)">
+          <a [routerLink]="item.path" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuOpen.set(false)">
             <span class="adm-side__icon" aria-hidden="true">{{ item.icon }}</span>{{ item.label }}
           </a>
         }
@@ -83,7 +83,8 @@ export class AdminShellComponent {
   protected readonly error = signal('');
 
   protected readonly nav = [
-    { path: '/admin', label: L.nav.dashboard, icon: '◈' },
+    { path: '/admin', label: 'Таҳрир дар сомона', icon: '✎' },
+    { path: '/admin/dashboard', label: L.nav.dashboard, icon: '◈' },
     { path: '/admin/texts', label: L.nav.texts, icon: '¶' },
     { path: '/admin/activities', label: L.nav.activities, icon: '◆' },
     { path: '/admin/destinations', label: L.nav.destinations, icon: '▲' },

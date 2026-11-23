@@ -6,6 +6,8 @@ import { ButtonComponent } from '../../shared/components/button/button';
 import { MediaComponent } from '../../shared/components/media/media';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
+import { EditItemDirective } from '../../shared/directives/edit-item.directive';
+import { EditAddComponent } from '../../shared/components/edit-add/edit-add';
 import { TranslatePipe } from '../../shared/pipes/translate.pipe';
 import { WhySectionComponent } from '../../shared/sections/why/why-section';
 
@@ -19,6 +21,8 @@ import { WhySectionComponent } from '../../shared/sections/why/why-section';
     ButtonComponent,
     RevealDirective,
     WhySectionComponent,
+    EditItemDirective,
+    EditAddComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './activities.page.html',

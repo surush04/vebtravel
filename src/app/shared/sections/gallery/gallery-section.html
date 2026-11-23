@@ -20,6 +20,8 @@
       }
     </div>
 
+    <app-edit-add [action]="{ type: 'gallery', category: filter() === 'all' ? undefined : filter() }" label="Акси нав ба галерея" />
+
     @for (key of [filter()]; track key) {
       <app-gallery-grid [items]="items()" (open)="lightboxIndex.set($event)" />
     }
