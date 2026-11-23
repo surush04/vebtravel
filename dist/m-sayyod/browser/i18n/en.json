@@ -1,0 +1,377 @@
+{
+  "meta": {
+    "brand": "M-SAYYOD",
+    "tagline": "Discover the Wild. Respect Nature. Experience the Mountains.",
+    "location": "Darvoz, Tajikistan",
+    "established": "Est. 2005"
+  },
+  "a11y": {
+    "skip": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Choose language",
+    "home": "M-SAYYOD — home",
+    "close": "Close",
+    "next": "Next image",
+    "prev": "Previous image",
+    "fullscreen": "Full screen",
+    "exitFullscreen": "Exit full screen",
+    "scroll": "scroll to discover more",
+    "mainNav": "Main navigation",
+    "footerNav": "Footer navigation",
+    "breadcrumb": "Breadcrumb",
+    "gallery": "Photo gallery",
+    "imageOf": "Image {{current}} of {{total}}",
+    "openImage": "Open image in full screen"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "activities": "Our Activities",
+    "destinations": "Destinations",
+    "gallery": "Gallery",
+    "conservation": "Conservation",
+    "contact": "Contact",
+    "menu": "Menu"
+  },
+  "common": {
+    "explore": "Explore",
+    "tbc": "To be announced",
+    "swipe": "Swipe"
+  },
+  "hero": {
+    "eyebrow": "Darvoz · Tajikistan · Since 2005",
+    "title": "The Spirit\nof the Wild",
+    "subtitle": "Discover the breathtaking mountains of Tajikistan with M-SAYYOD. Experience nature, mountain adventures and responsible wildlife tourism.",
+    "ctaPrimary": "Explore our activities",
+    "ctaSecondary": "Contact our team",
+    "caption": "Markhor · Capra falconeri",
+    "scroll": "Scroll"
+  },
+  "about": {
+    "eyebrow": "About M-SAYYOD",
+    "title": "Our Story.\nOur Mission.",
+    "lead": "Since 2005, M-SAYYOD has worked in the mountains of Darvoz with one conviction: the wild is worth protecting — and the best way to protect it is to understand it.",
+    "p1": "Founded in Darvoz, Tajikistan, M-SAYYOD brings together wildlife conservation and mountain tourism. At the heart of our work is the Markhor — the spiral-horned mountain goat that has become a symbol of the high mountains of Central Asia.",
+    "p2": "We guide travellers, photographers and hunters through these landscapes with respect for the land, its wildlife and the people who call the mountains home — always within the framework of applicable laws and regulations.",
+    "quote": "Discover the wild. Respect nature. Experience the mountains.",
+    "cta": "Learn more about us",
+    "timelineTitle": "Our path",
+    "timeline": [
+      { "year": "2005", "title": "Founded in Darvoz", "text": "M-SAYYOD is established in the Darvoz region of Tajikistan." },
+      { "year": "Mission", "title": "Protecting the Markhor", "text": "The conservation of the Markhor and its mountain habitat becomes the core of our work." },
+      { "year": "Today", "title": "Responsible mountain tourism", "text": "We welcome travellers to experience Darvoz through regulated, sustainable and authentic journeys." }
+    ],
+    "valuesTitle": "What guides us",
+    "values": [
+      { "title": "Respect for wildlife", "text": "Wild animals deserve to be observed and protected with care and respect." },
+      { "title": "Local knowledge", "text": "Knowing the mountains, the seasons and the nature of Darvoz is the foundation of every journey." },
+      { "title": "Responsibility", "text": "Every activity is carried out within the law and with responsibility towards nature." }
+    ]
+  },
+  "activities": {
+    "eyebrow": "Our activities",
+    "title": "Experiences\nshaped by the mountains",
+    "lead": "Five ways to experience Darvoz — each guided by local knowledge and a deep respect for the wild.",
+    "viewAll": "All activities",
+    "pointsTitle": "What to expect",
+    "pageCta": "Plan this experience",
+    "noteLabel": "Please note",
+    "items": {
+      "hunting": {
+        "title": "Hunting Tourism",
+        "summary": "Professional and legally regulated hunting experiences, subject to applicable permits and regulations.",
+        "description": "Hunting with M-SAYYOD is organised as a regulated activity, carried out in accordance with the laws of the Republic of Tajikistan and the permits issued by the competent authorities. Our approach connects hunting with conservation: responsibility towards wildlife populations and their habitats comes first.",
+        "points": [
+          "Organised only within the applicable legal framework and permit system",
+          "Guidance from people who know the Darvoz mountains",
+          "Ethics, safety and respect for wildlife at every stage"
+        ],
+        "note": "All hunting activities are subject to applicable laws, permits and regulations. Availability, seasons and conditions are confirmed individually."
+      },
+      "expeditions": {
+        "title": "Mountain Expeditions",
+        "summary": "Explore the magnificent mountain landscapes of Darvoz.",
+        "description": "Steep ridges, deep valleys and clear mountain air — Darvoz is one of the most dramatic corners of Tajikistan. Our mountain expeditions are planned around your interests and experience, with local guidance through landscapes few travellers ever see.",
+        "points": [
+          "Journeys planned individually with our team",
+          "Local knowledge of mountain terrain and conditions",
+          "Time to experience the landscape at a natural pace"
+        ]
+      },
+      "ecotourism": {
+        "title": "Ecotourism",
+        "summary": "Discover the natural beauty and biodiversity of Tajikistan.",
+        "description": "Ecotourism with M-SAYYOD is about slowing down and seeing the mountains as a living system — their wildlife, plants, rivers and the rhythm of mountain life. Travel lightly, learn from local guides and leave the land as you found it.",
+        "points": [
+          "Low-impact travel that respects fragile mountain ecosystems",
+          "Encounters with the natural and cultural landscape of the region",
+          "Insight into the biodiversity of the Darvoz mountains"
+        ]
+      },
+      "photography": {
+        "title": "Wildlife Photography",
+        "summary": "Observe and photograph wildlife in its natural habitat.",
+        "description": "For photographers, Darvoz offers dramatic light, vast landscapes and the chance to observe mountain wildlife in its natural environment. We help you find the right places and moments — always keeping a respectful distance from the animals.",
+        "points": [
+          "Guidance to observe wildlife without disturbing it",
+          "Landscapes and light for documentary and nature photography",
+          "Patience, fieldcraft and respect for the animals"
+        ]
+      },
+      "conservation": {
+        "title": "Wildlife Conservation",
+        "summary": "Learn about protecting the Markhor and preserving mountain ecosystems.",
+        "description": "Conservation is the foundation of everything we do. Visitors can learn how the Markhor and its habitat are protected, why balance in mountain ecosystems matters and how responsible tourism can support the wild places of Darvoz.",
+        "points": [
+          "Understanding the Markhor and its mountain habitat",
+          "Insight into conservation in the Darvoz region",
+          "How responsible tourism can support nature"
+        ]
+      }
+    }
+  },
+  "destinations": {
+    "eyebrow": "Destinations",
+    "title": "Where the\nmountains begin",
+    "lead": "From the village of Zighar to the high ridges of Darvoz — discover landscapes shaped by rivers, rock and time.",
+    "cta": "Explore destinations",
+    "mapEyebrow": "Map",
+    "mapTitle": "The Darvoz region",
+    "mapText": "A general overview of the Darvoz region in Tajikistan. Specific routes are planned individually together with our team.",
+    "mapLoad": "Load interactive map",
+    "mapNotice": "The map is provided by OpenStreetMap. Loading it connects to an external service.",
+    "mapOpen": "Open in OpenStreetMap",
+    "items": {
+      "zighar": {
+        "name": "Zighar",
+        "tag": "Village · Darvoz",
+        "text": "A mountain village in Darvoz and a natural starting point for discovering the region — surrounded by steep slopes, rugged terrain and the wild landscapes of Darvoz."
+      },
+      "darvoz": {
+        "name": "Darvoz Mountains",
+        "tag": "Mountain range",
+        "text": "Rising steeply above the river valleys, the mountains of Darvoz form one of Tajikistan's most striking landscapes — a world of rock, ridges and vast silence."
+      },
+      "landscapes": {
+        "name": "Mountain Landscapes",
+        "tag": "Valleys · Ridges · Peaks",
+        "text": "Changing light across ridges and valleys, wide horizons and untouched slopes — landscapes made for slow travel, expeditions and photography."
+      },
+      "habitats": {
+        "name": "Wildlife Habitats",
+        "tag": "Markhor · Mountain wildlife",
+        "text": "Steep cliffs and remote slopes are the home of the Markhor and other mountain wildlife. Protecting these places is at the heart of our work."
+      }
+    }
+  },
+  "conservation": {
+    "eyebrow": "Wildlife conservation",
+    "title": "Protecting the Wild\nfor Generations",
+    "lead": "The Markhor is one of the most remarkable animals of the mountains of Central Asia. Its future depends on protecting the places where it lives — and on managing wildlife with knowledge and responsibility.",
+    "p1": "Since 2005, M-SAYYOD has been committed to protecting the Markhor in Darvoz. We believe that conservation and tourism can work together: when wildlife is valued, it is protected.",
+    "p2": "Our work is guided by respect for biodiversity, respect for the people of the mountains and the responsible, regulated management of wildlife.",
+    "speciesLabel": "Species",
+    "species": "Markhor",
+    "speciesText": "Known for its spectacular spiral horns, the Markhor lives on steep, rocky mountain slopes. It is a symbol of the wild mountains of Central Asia.",
+    "pillars": [
+      { "title": "Markhor protection", "text": "Safeguarding the Markhor and the mountain slopes and cliffs it depends on." },
+      { "title": "Biodiversity", "text": "Preserving the balance of mountain ecosystems — their wildlife, plants and landscapes." },
+      { "title": "Responsible management", "text": "Lawful, careful and long-term management of wildlife for future generations." }
+    ],
+    "quote": "What we protect today is what the next generation will discover.",
+    "principlesTitle": "Our principles",
+    "principles": [
+      { "title": "Respect", "text": "Wildlife is observed and experienced with respect and care." },
+      { "title": "Legality", "text": "All activities follow applicable laws, permits and regulations." },
+      { "title": "Sustainability", "text": "Tourism should support nature — never come at its expense." },
+      { "title": "Long-term thinking", "text": "We act for the mountains of tomorrow, not only for today." }
+    ],
+    "cta": "Our conservation commitment"
+  },
+  "gallery": {
+    "eyebrow": "Gallery",
+    "title": "Moments from\nthe mountains",
+    "lead": "A glimpse into the world of Darvoz — its wildlife, mountains, expeditions and nature.",
+    "all": "All",
+    "filterLabel": "Filter gallery",
+    "viewAll": "View full gallery",
+    "categories": {
+      "wildlife": "Wildlife",
+      "mountains": "Mountains",
+      "expeditions": "Expeditions",
+      "nature": "Nature",
+      "activities": "Activities"
+    }
+  },
+  "why": {
+    "eyebrow": "Why M-SAYYOD",
+    "title": "Why choose\nM-SAYYOD",
+    "lead": "An organisation rooted in Darvoz, combining mountain experience with a lasting commitment to the wild.",
+    "statLabel": "years in the mountains of Darvoz",
+    "statSince": "Since 2005",
+    "items": [
+      { "title": "Experience since 2005", "text": "Working in the mountains of Darvoz since our establishment in 2005." },
+      { "title": "Local mountain knowledge", "text": "Close familiarity with the terrain, the seasons and the wildlife of the region." },
+      { "title": "Focus on wildlife conservation", "text": "Protecting the Markhor and its habitat is at the core of what we do." },
+      { "title": "Mountain tourism expertise", "text": "Thoughtfully organised expeditions, ecotourism and photography journeys." },
+      { "title": "Authentic Darvoz experience", "text": "A genuine encounter with the landscapes and the spirit of the Darvoz mountains." }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Begin your\njourney",
+    "lead": "Tell us about the experience you are looking for. Our team will get back to you.",
+    "info": {
+      "location": "Location",
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "whatsappCta": "Message us on WhatsApp",
+    "whatsappGreeting": "Hello M-SAYYOD, I would like to learn more about your activities.",
+    "mapTitle": "Find us",
+    "form": {
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone number",
+      "country": "Country",
+      "message": "Message",
+      "activity": "Preferred activity",
+      "activityPlaceholder": "Select an activity",
+      "activityOther": "Not sure yet",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "optional": "optional",
+      "consent": "I agree that my details will be used to respond to my enquiry.",
+      "messageIntro": "Website enquiry",
+      "errors": {
+        "required": "This field is required.",
+        "email": "Please enter a valid email address.",
+        "phone": "Please enter a valid phone number.",
+        "minlength": "Please write a little more.",
+        "consent": "Please confirm to continue."
+      },
+      "success": "Thank you. Your message has been sent — our team will contact you soon.",
+      "error": "Something went wrong. Please try again or contact us directly.",
+      "whatsapp": "Your message has been prepared in WhatsApp. Please send it there to complete your enquiry.",
+      "unconfigured": "Online enquiries are not connected yet. Please contact us using the details on this page."
+    }
+  },
+  "footer": {
+    "ctaEyebrow": "Plan your journey",
+    "ctaTitle": "The mountains\nare calling",
+    "ctaButton": "Contact our team",
+    "description": "M-SAYYOD — wildlife conservation, regulated hunting tourism and mountain expeditions in Darvoz, Tajikistan, since 2005.",
+    "explore": "Explore",
+    "activities": "Activities",
+    "contact": "Contact",
+    "rights": "All rights reserved.",
+    "backToTop": "Back to top",
+    "social": "Social media"
+  },
+  "pages": {
+    "about": {
+      "eyebrow": "About us",
+      "title": "Rooted in\nthe mountains",
+      "lead": "The story and mission of M-SAYYOD — in the mountains of Darvoz since 2005."
+    },
+    "activities": {
+      "eyebrow": "Our activities",
+      "title": "Mountain\nexperiences",
+      "lead": "Regulated hunting tourism, mountain expeditions, ecotourism, wildlife photography and conservation."
+    },
+    "destinations": {
+      "eyebrow": "Destinations",
+      "title": "Discover\nDarvoz",
+      "lead": "Zighar, the Darvoz mountains, mountain landscapes and the habitats of wild animals."
+    },
+    "gallery": {
+      "eyebrow": "Gallery",
+      "title": "Darvoz\nin pictures",
+      "lead": "Wildlife, mountains, expeditions and nature — moments from the world of M-SAYYOD."
+    },
+    "conservation": {
+      "eyebrow": "Conservation",
+      "title": "For the\ngenerations ahead",
+      "lead": "Protecting the Markhor, preserving biodiversity and managing wildlife responsibly."
+    },
+    "contact": {
+      "eyebrow": "Contact",
+      "title": "Let's\ntalk",
+      "lead": "Get in touch with the M-SAYYOD team to plan a journey or ask a question."
+    },
+    "notFound": {
+      "eyebrow": "404",
+      "title": "Lost in\nthe mountains",
+      "lead": "The page you are looking for does not exist or has been moved.",
+      "cta": "Back to home"
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "M-SAYYOD — Hunting, Conservation & Mountain Tourism in Darvoz, Tajikistan",
+      "description": "M-SAYYOD: Markhor conservation, regulated hunting tourism, mountain expeditions, ecotourism and wildlife photography in Darvoz, Tajikistan. Since 2005."
+    },
+    "about": {
+      "title": "About Us — M-SAYYOD, Darvoz, Tajikistan",
+      "description": "The story and mission of M-SAYYOD: established in Darvoz in 2005 and committed to protecting the Markhor and sustainable mountain tourism."
+    },
+    "activities": {
+      "title": "Our Activities — Hunting Tourism, Expeditions & Ecotourism | M-SAYYOD",
+      "description": "Legally regulated hunting tourism, mountain expeditions, ecotourism, wildlife photography and conservation experiences in Darvoz, Tajikistan."
+    },
+    "destinations": {
+      "title": "Destinations — Zighar & the Darvoz Mountains | M-SAYYOD",
+      "description": "Discover Zighar, the Darvoz mountains, mountain landscapes and wildlife habitats in Tajikistan with M-SAYYOD."
+    },
+    "gallery": {
+      "title": "Gallery — Wildlife & Mountains of Darvoz | M-SAYYOD",
+      "description": "Photography of wildlife, mountains, expeditions and nature in Darvoz, Tajikistan."
+    },
+    "conservation": {
+      "title": "Wildlife Conservation — Protecting the Markhor | M-SAYYOD",
+      "description": "Why Markhor conservation, biodiversity and responsible wildlife management matter — and how M-SAYYOD works to protect the wild."
+    },
+    "contact": {
+      "title": "Contact — M-SAYYOD, Darvoz, Tajikistan",
+      "description": "Contact the M-SAYYOD team to plan mountain expeditions, ecotourism, wildlife photography or regulated hunting experiences."
+    },
+    "notFound": {
+      "title": "Page not found — M-SAYYOD",
+      "description": "The page you are looking for could not be found."
+    }
+  },
+  "media": {
+    "hero-markhor": "A Markhor standing on a rocky ridge above the mountains of Darvoz",
+    "about-main": "The mountains of Darvoz at first light",
+    "about-detail": "A guide looking out over a valley in Darvoz",
+    "activity-hunting": "A guide scanning the mountain slopes with binoculars",
+    "activity-expeditions": "Travellers on a high mountain trail in Darvoz",
+    "activity-ecotourism": "A green mountain valley with a river in Tajikistan",
+    "activity-photography": "A photographer with a telephoto lens in the mountains",
+    "activity-conservation": "A Markhor in its natural mountain habitat",
+    "dest-zighar": "The village of Zighar among the mountains of Darvoz",
+    "dest-darvoz": "Steep ridges of the Darvoz mountains",
+    "dest-landscapes": "Mountain ridges and valleys in changing light",
+    "dest-habitats": "Rocky cliffs — the natural habitat of the Markhor",
+    "conservation-markhor": "A Markhor with spiral horns in the wild",
+    "conservation-detail": "Steep mountain slopes of the Markhor habitat",
+    "contact-landscape": "The mountains of Darvoz at dusk",
+    "gallery-01": "Markhor with spiral horns on a cliff",
+    "gallery-02": "Snow-capped ridges of the Darvoz mountains",
+    "gallery-03": "A mountain river winding through a deep valley",
+    "gallery-04": "Expedition team on a high mountain trail",
+    "gallery-05": "Markhor on a steep mountain slope",
+    "gallery-06": "Morning mist over the peaks",
+    "gallery-07": "A guide observing the slopes through binoculars",
+    "gallery-08": "Wildflowers on a mountain meadow",
+    "gallery-09": "Close-up portrait of a Markhor",
+    "gallery-10": "Camp beneath the mountains at dusk",
+    "gallery-11": "Golden light across the ridges of Darvoz",
+    "gallery-12": "Rocky canyon walls in Darvoz",
+    "gallery-13": "A wildlife photographer at work in the mountains",
+    "gallery-14": "Markhor silhouetted against the sky",
+    "gallery-15": "Travellers crossing a mountain pass",
+    "gallery-16": "Mountain peaks above the clouds"
+  }
+}

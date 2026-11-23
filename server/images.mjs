@@ -2,6 +2,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 
+// Keep memory low on small instances (e.g. 512 MB on Render).
+sharp.cache(false);
+sharp.concurrency(1);
+
 const WIDTHS = [480, 800, 1200, 1600, 2400];
 const FORMATS = ['avif', 'webp', 'jpg'];
 

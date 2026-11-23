@@ -1,5 +1,8 @@
-# Render Blueprint — https://render.com/docs/blueprint-spec
-# Dashboard → New → Blueprint → select this repository.
+﻿# Render Blueprint - https://render.com/docs/blueprint-spec
+# Dashboard -> New -> Blueprint -> select this repository.
+#
+# The built site (dist/) is committed, so Render only installs the small
+# runtime dependencies and starts the server - no memory-heavy build step.
 services:
   - type: web
     name: m-sayyod
@@ -7,8 +10,8 @@ services:
     # A persistent disk (required so admin edits, photos and messages survive
     # restarts and deploys) is available on paid plans only.
     plan: starter
-    buildCommand: npm ci --include=dev && npm run build
-    startCommand: npm run server
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
     healthCheckPath: /healthz
     envVars:
       - key: NODE_VERSION

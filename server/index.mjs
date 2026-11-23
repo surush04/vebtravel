@@ -174,6 +174,11 @@ if (fs.existsSync(DIST)) {
     res.set('Cache-Control', 'no-cache');
     res.sendFile(path.join(DIST, 'index.html'));
   });
+} else {
+  console.warn('  ! dist/ not found — run "npm run build" before starting the server.');
+  app.get(/.*/, (req, res) =>
+    res.status(503).type('text').send('Site is not built yet. Build command: npm install --include=dev && npm run build'),
+  );
 }
 
 app.use((err, req, res, next) => {

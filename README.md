@@ -38,7 +38,12 @@ The repository includes `render.yaml` (a Render Blueprint).
 
 1. Render dashboard → **New → Blueprint**, then select this repository.
 2. When asked, enter **`ADMIN_PASSWORD`**. It is stored only in Render, not in git.
-3. Deploy. The build runs `npm ci --include=dev && npm run build`, the start command is `npm run server`, and the health check is `/healthz`.
+3. Deploy. The build command is `npm ci --omit=dev`, the start command is `npm start`, and the health check is `/healthz`.
+
+**Manual Web Service** (without the Blueprint): use **Build Command** `npm install --omit=dev` and **Start Command** `npm start`.
+
+- **Why `dist/` is committed:** the Angular build needs about 750 MB of memory, more than small instances provide, so the built site is committed and Render only starts the server.
+- **After changing code** (not content), run `npm run build` locally, then commit and push `dist/` too. Content edited in the admin panel needs no rebuild.
 
 - **Persistent disk (required):** Render's filesystem is temporary, so without a disk every admin edit, photo and message is lost on each restart or deploy. The blueprint mounts a 1 GB disk at `/var/data` (`DATA_DIR`), which needs a paid instance (Starter).
 - **First start:** the disk is filled from the content committed in `server/data/` (texts, lists, photos). From then on, the admin panel is the source of truth.
